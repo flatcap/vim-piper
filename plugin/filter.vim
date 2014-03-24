@@ -1,11 +1,19 @@
 " filter.vim - The magic of pipes
-" Maintainer:	Rich Russon (flatcap) <rich@flatcap.org>
-" Version:	0.1
+" Maintainer:   Rich Russon (flatcap) <rich@flatcap.org>
+" Version:      0.1
 
-" visual	cps		sort block
-" operator	cps<motion>	sort motion
-" normal	cpss		sort line
-" normal	cpS		sort whole file
+" Filter blocks of text through various system commands.
+" Each mapping is of the form cpX (mnemonic Change-Pipe-X):
+"
+"  Mapping  Command      Description
+" -------------------------------------------------
+"  cpc      column -t    Arrange in columns
+"  cpn      nl -nrz -w4  4 digit line numbers
+"  cpr      rev          Write each line backwards
+"  cps      sort -f      Sort the file
+"  cpt      tac          Reverse the file
+"  cpu      uniq         Remove duplicates
+"  cpx      sort -R      Randomise (miX up)
 
 if exists("g:loaded_filter") || &cp || v:version < 700
 	finish
@@ -22,18 +30,6 @@ function! s:go(command,args)
 	execute start.','.stop.'!'.a:command
 endfunction
 
-function! s:go_sort(...)
-	call s:go("LANG=C sort -f", a:000)
-endfunction
-
-function! s:go_uniq(...)
-	call s:go("LANG=C uniq", a:000)
-endfunction
-
-function! s:go_rev(...)
-	call s:go("LANG=C rev", a:000)
-endfunction
-
 function! s:go_column(...)
 	call s:go("LANG=C column -t", a:000)
 endfunction
@@ -46,80 +42,98 @@ function! s:go_random(...)
 	call s:go("LANG=C sort -R", a:000)
 endfunction
 
+function! s:go_rev(...)
+	call s:go("LANG=C rev", a:000)
+endfunction
+
+function! s:go_sort(...)
+	call s:go("LANG=C sort -f", a:000)
+endfunction
+
 function! s:go_tac(...)
 	call s:go("LANG=C tac", a:000)
 endfunction
 
-xnoremap <silent> <Plug>FilterSortVisual :<C-U>call <SID>go_sort(line("'<"),line("'>"))<CR>
-nnoremap <silent> <Plug>FilterSortMotion :<C-U>set opfunc=<SID>go_sort<CR>g@
-nnoremap <silent> <Plug>FilterSortAll    :call <SID>go_sort(1,line('$'))<CR>
-nnoremap <silent> <Plug>FilterSortLine   :call <SID>go_sort(line('.'),line('.'))<CR>
+function! s:go_uniq(...)
+	call s:go("LANG=C uniq", a:000)
+endfunction
 
-xnoremap <silent> <Plug>FilterUniqVisual :<C-U>call <SID>go_uniq(line("'<"),line("'>"))<CR>
-nnoremap <silent> <Plug>FilterUniqMotion :<C-U>set opfunc=<SID>go_uniq<CR>g@
-nnoremap <silent> <Plug>FilterUniqAll    :call <SID>go_uniq(1,line('$'))<CR>
-nnoremap <silent> <Plug>FilterUniqLine   :call <SID>go_uniq(line('.'),line('.'))<CR>
+" Four mappings for each command
+"       FilterV visual
+"       FilterM motion
+"       FilterA all the file
+"       FilterL line (single)
 
-xnoremap <silent> <Plug>FilterRevVisual :<C-U>call <SID>go_rev(line("'<"),line("'>"))<CR>
-nnoremap <silent> <Plug>FilterRevMotion :<C-U>set opfunc=<SID>go_rev<CR>g@
-nnoremap <silent> <Plug>FilterRevAll    :call <SID>go_rev(1,line('$'))<CR>
-nnoremap <silent> <Plug>FilterRevLine   :call <SID>go_rev(line('.'),line('.'))<CR>
+xnoremap <silent> <Plug>FilterV_Column :<C-U>call <SID>go_column(line("'<"),line("'>"))<CR>
+nnoremap <silent> <Plug>FilterM_Column :<C-U>set opfunc=<SID>go_column<CR>g@
+nnoremap <silent> <Plug>FilterA_Column :call <SID>go_column(1,line('$'))<CR>
+nnoremap <silent> <Plug>FilterL_Column :call <SID>go_column(line('.'),line('.'))<CR>
 
-xnoremap <silent> <Plug>FilterColumnVisual :<C-U>call <SID>go_column(line("'<"),line("'>"))<CR>
-nnoremap <silent> <Plug>FilterColumnMotion :<C-U>set opfunc=<SID>go_column<CR>g@
-nnoremap <silent> <Plug>FilterColumnAll    :call <SID>go_column(1,line('$'))<CR>
-nnoremap <silent> <Plug>FilterColumnLine   :call <SID>go_column(line('.'),line('.'))<CR>
+xnoremap <silent> <Plug>FilterV_Nl     :<C-U>call <SID>go_nl(line("'<"),line("'>"))<CR>
+nnoremap <silent> <Plug>FilterM_Nl     :<C-U>set opfunc=<SID>go_nl<CR>g@
+nnoremap <silent> <Plug>FilterA_Nl     :call <SID>go_nl(1,line('$'))<CR>
+nnoremap <silent> <Plug>FilterL_Nl     :call <SID>go_nl(line('.'),line('.'))<CR>
 
-xnoremap <silent> <Plug>FilterNlVisual :<C-U>call <SID>go_nl(line("'<"),line("'>"))<CR>
-nnoremap <silent> <Plug>FilterNlMotion :<C-U>set opfunc=<SID>go_nl<CR>g@
-nnoremap <silent> <Plug>FilterNlAll    :call <SID>go_nl(1,line('$'))<CR>
-nnoremap <silent> <Plug>FilterNlLine   :call <SID>go_nl(line('.'),line('.'))<CR>
+xnoremap <silent> <Plug>FilterV_Random :<C-U>call <SID>go_random(line("'<"),line("'>"))<CR>
+nnoremap <silent> <Plug>FilterM_Random :<C-U>set opfunc=<SID>go_random<CR>g@
+nnoremap <silent> <Plug>FilterA_Random :call <SID>go_random(1,line('$'))<CR>
+nnoremap <silent> <Plug>FilterL_Random :call <SID>go_random(line('.'),line('.'))<CR>
 
-xnoremap <silent> <Plug>FilterRandomVisual :<C-U>call <SID>go_random(line("'<"),line("'>"))<CR>
-nnoremap <silent> <Plug>FilterRandomMotion :<C-U>set opfunc=<SID>go_random<CR>g@
-nnoremap <silent> <Plug>FilterRandomAll    :call <SID>go_random(1,line('$'))<CR>
-nnoremap <silent> <Plug>FilterRandomLine   :call <SID>go_random(line('.'),line('.'))<CR>
+xnoremap <silent> <Plug>FilterV_Rev    :<C-U>call <SID>go_rev(line("'<"),line("'>"))<CR>
+nnoremap <silent> <Plug>FilterM_Rev    :<C-U>set opfunc=<SID>go_rev<CR>g@
+nnoremap <silent> <Plug>FilterA_Rev    :call <SID>go_rev(1,line('$'))<CR>
+nnoremap <silent> <Plug>FilterL_Rev    :call <SID>go_rev(line('.'),line('.'))<CR>
 
-xnoremap <silent> <Plug>FilterTacVisual :<C-U>call <SID>go_tac(line("'<"),line("'>"))<CR>
-nnoremap <silent> <Plug>FilterTacMotion :<C-U>set opfunc=<SID>go_tac<CR>g@
-nnoremap <silent> <Plug>FilterTacAll    :call <SID>go_tac(1,line('$'))<CR>
-nnoremap <silent> <Plug>FilterTacLine   :call <SID>go_tac(line('.'),line('.'))<CR>
+xnoremap <silent> <Plug>FilterV_Sort   :<C-U>call <SID>go_sort(line("'<"),line("'>"))<CR>
+nnoremap <silent> <Plug>FilterM_Sort   :<C-U>set opfunc=<SID>go_sort<CR>g@
+nnoremap <silent> <Plug>FilterA_Sort   :call <SID>go_sort(1,line('$'))<CR>
+nnoremap <silent> <Plug>FilterL_Sort   :call <SID>go_sort(line('.'),line('.'))<CR>
 
-if !hasmapto('<Plug>FilterSortVisual') || maparg('cps','n') ==# ''
-	xmap cps  <Plug>FilterSortVisual
-	nmap cps  <Plug>FilterSortMotion
-	nmap cpss <Plug>FilterSortLine
-	nmap cpS  <Plug>FilterSortAll
+xnoremap <silent> <Plug>FilterV_Tac    :<C-U>call <SID>go_tac(line("'<"),line("'>"))<CR>
+nnoremap <silent> <Plug>FilterM_Tac    :<C-U>set opfunc=<SID>go_tac<CR>g@
+nnoremap <silent> <Plug>FilterA_Tac    :call <SID>go_tac(1,line('$'))<CR>
+nnoremap <silent> <Plug>FilterL_Tac    :call <SID>go_tac(line('.'),line('.'))<CR>
 
-	xmap cpu  <Plug>FilterUniqVisual
-	nmap cpu  <Plug>FilterUniqMotion
-	nmap cpuu <Plug>FilterUniqLine
-	nmap cpU  <Plug>FilterUniqAll
+xnoremap <silent> <Plug>FilterV_Uniq   :<C-U>call <SID>go_uniq(line("'<"),line("'>"))<CR>
+nnoremap <silent> <Plug>FilterM_Uniq   :<C-U>set opfunc=<SID>go_uniq<CR>g@
+nnoremap <silent> <Plug>FilterA_Uniq   :call <SID>go_uniq(1,line('$'))<CR>
+nnoremap <silent> <Plug>FilterL_Uniq   :call <SID>go_uniq(line('.'),line('.'))<CR>
 
-	xmap cpr  <Plug>FilterRevVisual
-	nmap cpr  <Plug>FilterRevMotion
-	nmap cprr <Plug>FilterRevLine
-	nmap cpR  <Plug>FilterRevAll
+if !hasmapto('<Plug>FilterV_Sort') || maparg('cpc','n') ==# ''
+	xmap cpc  <Plug>FilterV_Column
+	nmap cpc  <Plug>FilterM_Column
+	nmap cpcc <Plug>FilterL_Column
+	nmap cpC  <Plug>FilterA_Column
 
-	xmap cpc  <Plug>FilterColumnVisual
-	nmap cpc  <Plug>FilterColumnMotion
-	nmap cpcc <Plug>FilterColumnLine
-	nmap cpC  <Plug>FilterColumnAll
+	xmap cpn  <Plug>FilterV_Nl
+	nmap cpn  <Plug>FilterM_Nl
+	nmap cpnn <Plug>FilterL_Nl
+	nmap cpN  <Plug>FilterA_Nl
 
-	xmap cpn  <Plug>FilterNlVisual
-	nmap cpn  <Plug>FilterNlMotion
-	nmap cpnn <Plug>FilterNlLine
-	nmap cpN  <Plug>FilterNlAll
+	xmap cpr  <Plug>FilterV_Rev
+	nmap cpr  <Plug>FilterM_Rev
+	nmap cprr <Plug>FilterL_Rev
+	nmap cpR  <Plug>FilterA_Rev
 
-	xmap cpx  <Plug>FilterRandomVisual
-	nmap cpx  <Plug>FilterRandomMotion
-	nmap cpxx <Plug>FilterRandomLine
-	nmap cpX  <Plug>FilterRandomAll
+	xmap cps  <Plug>FilterV_Sort
+	nmap cps  <Plug>FilterM_Sort
+	nmap cpss <Plug>FilterL_Sort
+	nmap cpS  <Plug>FilterA_Sort
 
-	xmap cpt  <Plug>FilterTacVisual
-	nmap cpt  <Plug>FilterTacMotion
-	nmap cptt <Plug>FilterTacLine
-	nmap cpT  <Plug>FilterTacAll
+	xmap cpt  <Plug>FilterV_Tac
+	nmap cpt  <Plug>FilterM_Tac
+	nmap cptt <Plug>FilterL_Tac
+	nmap cpT  <Plug>FilterA_Tac
+
+	xmap cpu  <Plug>FilterV_Uniq
+	nmap cpu  <Plug>FilterM_Uniq
+	nmap cpuu <Plug>FilterL_Uniq
+	nmap cpU  <Plug>FilterA_Uniq
+
+	xmap cpx  <Plug>FilterV_Random
+	nmap cpx  <Plug>FilterM_Random
+	nmap cpxx <Plug>FilterL_Random
+	nmap cpX  <Plug>FilterA_Random
 endif
 
 " vim:set noet ts=8 sw=8:
