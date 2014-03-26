@@ -1,0 +1,131 @@
+*filter.txt*    Pass text through command-line filters
+
+Author:  Richard Russon (flatcap) <rich@flatcap.org>
+License: Same terms as Vim itself (see |license|)
+
+This plugin is only available if 'compatible' is not set.
+
+INTRODUCTION                                    *filter*
+
+Same time by creating mappings for common filtering commands.
+e.g. sort, uniq, nl.
+
+COMMANDS                                        *filter-commands*
+
+There are seven commands by default:
+
+  Mnemonic  Command      Description ~
+  c         column -t    Arrange text in columns
+  n         nl -nrz -w4  Add 4 digit line numbers
+  r         rev          Write each line backwards
+  s         sort -f      Sort the file
+  t         tac          Reverse the file
+  u         uniq         Remove duplicates
+  x         sort -R      Randomise (miX up)
+  
+MAPPINGS                                        *filter-mappings*
+
+Each command has three mappings.
+Each mapping begins with  cp (remember this as Change using a Pipe), followed
+by a letter from the table above: |filter-commands|
+For example, the mappings for the "rev" command are:
+
+  Mapping       Description ~
+  cpr           Filter region defined by vim {motion} commands
+  cprr          Filter the current line
+  cpR           Filter the entire file (note the capital letter)
+
+                                                *cpc*
+cpc{motion}             Run text within {motion} through the "column" command.
+
+                                                *cpcc*
+cpcc                    Run current line through the  "column" command.
+
+                                                *cpC*
+cpC                     Run the "column" command on the entire file.
+
+                                                *cpn*
+cpn{motion}             Run text within {motion} through the "nl" command.
+
+                                                *cpnn*
+cpnn                    Run current line through the  "nl" command.
+
+                                                *cpN*
+cpN                     Run the "nl" command on the entire file.
+
+                                                *cpr*
+cpr{motion}             Run text within {motion} through the "rev" command.
+
+                                                *cprr*
+cprr                    Run current line through the  "rev" command.
+
+                                                *cpR*
+cpR                     Run the "rev" command on the entire file.
+
+                                                *cps*
+cps{motion}             Run text within {motion} through the "sort" command.
+
+                                                *cpss*
+cpss                    Run current line through the  "sort" command.
+
+                                                *cpS*
+cpS                     Run the "sort" command on the entire file.
+
+                                                *cpt*
+cpt{motion}             Run text within {motion} through the "tac" command.
+
+                                                *cptt*
+cptt                    Run current line through the  "tac" command.
+
+                                                *cpT*
+cpT                     Run the "tac" command on the entire file.
+
+                                                *cpu*
+cpu{motion}             Run text within {motion} through the "uniq" command.
+
+                                                *cpuu*
+cpuu                    Run current line through the  "uniq" command.
+
+                                                *cpU*
+cpU                     Run the "uniq" command on the entire file.
+
+                                                *cpx*
+cpx{motion}             Run text within {motion} through the "sort -R" (random) command.
+
+                                                *cpxx*
+cpxx                    Run current line through the  "sort -R" command.
+
+                                                *cpX*
+cpX                     Run the "sort -R" command on the entire file.
+
+CONFIGURATION                                   *filter-configuration*
+
+The filter is initialised from a vim dictionary.  Here's the default:
+
+  let g:filter_commands = {
+  	\ 'c': 'LANG=C column -t',
+  	\ 'n': 'LANG=C nl -nrz -w4',
+  	\ 'r': 'LANG=C rev',
+  	\ 's': 'LANG=C sort -f',
+  	\ 't': 'LANG=C tac',
+  	\ 'u': 'LANG=C uniq',
+  	\ 'x': 'LANG=C sort -R',
+  \ }
+
+To add your own command, or change the parameters for an existing command,
+copy the script, above, into your .vimrc (before the call to pathogen).
+
+EXAMPLES                                        *filter-examples*
+
+  Type This     Result ~
+  cpsip         Current paragraph is sorted
+  cpx9j         Ten lines are randomised
+  cpN           Add lines numbers to the entire file
+
+ABOUT                                           *filter-about*
+
+Grab the latest version or report a bug on GitHub:
+
+http://github.com/flatcap/vim-filter
+
+ vim:tw=78:et:ft=help:norl:
