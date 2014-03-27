@@ -1,16 +1,16 @@
-*filter.txt*    Pass text through command-line filters
+*piper.txt*    Pass text through command-line filters
 
 Author:  Richard Russon (flatcap) <rich@flatcap.org>
 License: Same terms as Vim itself (see |license|)
 
 This plugin is only available if 'compatible' is not set.
 
-INTRODUCTION                                    *filter*
+INTRODUCTION                                    *piper*
 
 Same time by creating mappings for common filtering commands.
 e.g. sort, uniq, nl.
 
-COMMANDS                                        *filter-commands*
+COMMANDS                                        *piper-commands*
 
 There are seven commands by default:
 
@@ -23,11 +23,11 @@ There are seven commands by default:
   u         uniq         Remove duplicates
   x         sort -R      Randomise (miX up)
   
-MAPPINGS                                        *filter-mappings*
+MAPPINGS                                        *piper-mappings*
 
 Each command has three mappings.
 Each mapping begins with  cp (remember this as Change using a Pipe), followed
-by a letter from the table above: |filter-commands|
+by a letter from the table above: |piper-commands|
 For example, the mappings for the "rev" command are:
 
   Mapping       Description ~
@@ -98,11 +98,11 @@ cpxx                    Run current line through the  "sort -R" command.
                                                 *cpX*
 cpX                     Run the "sort -R" command on the entire file.
 
-CONFIGURATION                                   *filter-configuration*
+CONFIGURATION                                   *piper-configuration*
 
-The filter is initialised from a vim dictionary.  Here's the default:
+The pipes are initialised from a vim dictionary.  Here's the default:
 
-  let g:filter_commands = {
+  let g:piper_commands = {
   	\ 'c': 'LANG=C column -t',
   	\ 'n': 'LANG=C nl -nrz -w4',
   	\ 'r': 'LANG=C rev',
@@ -115,17 +115,17 @@ The filter is initialised from a vim dictionary.  Here's the default:
 To add your own command, or change the parameters for an existing command,
 copy the script, above, into your .vimrc (before the call to pathogen).
 
-EXAMPLES                                        *filter-examples*
+EXAMPLES                                        *piper-examples*
 
   Type This     Result ~
   cpsip         Current paragraph is sorted
   cpx9j         Ten lines are randomised
   cpN           Add lines numbers to the entire file
 
-ABOUT                                           *filter-about*
+ABOUT                                           *piper-about*
 
 Grab the latest version or report a bug on GitHub:
 
-http://github.com/flatcap/vim-filter
+http://github.com/flatcap/vim-piper
 
  vim:tw=78:et:ft=help:norl:
