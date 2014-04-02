@@ -9,6 +9,7 @@ let g:loaded_piper = 1
 
 if !exists("g:piper_command_list")
 	let g:piper_command_list = {
+		\ '1': 'LANG=C sort -n',
 		\ 's': 'LANG=C sort -f',
 		\ 'c': 'LANG=C column -t',
 		\ 'n': 'LANG=C nl -nrz -w4',
