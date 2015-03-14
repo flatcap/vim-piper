@@ -1,6 +1,9 @@
 " piper.vim - The magic of pipes
-" Maintainer:   Rich Russon (flatcap) <rich@flatcap.org>
-" Version:      0.1
+" Author:       Rich Russon (flatcap) <rich@flatcap.org>
+" Website:      https://flatcap.org
+" Copyright:    2014-2015 Richard Russon
+" License:      GPLv2+
+" Version:      1.0
 
 if exists("g:loaded_piper") || &cp || v:version < 700
 	finish
@@ -10,13 +13,13 @@ let g:loaded_piper = 1
 if !exists("g:piper_command_list")
 	let g:piper_command_list = {
 		\ '1': 'LANG=C sort -n',
-		\ 's': 'LANG=C sort -f',
 		\ 'c': 'LANG=C column -t',
 		\ 'n': 'LANG=C nl -nrz -w4',
 		\ 'r': 'LANG=C rev',
+		\ 's': 'LANG=C sort -f',
 		\ 't': 'LANG=C tac',
 		\ 'u': 'LANG=C uniq',
-		\ 'x': 'LANG=C sort -R',
+		\ 'x': 'LANG=C shuf',
 	\ }
 endif
 

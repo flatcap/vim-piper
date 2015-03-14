@@ -1,4 +1,4 @@
-*piper.txt*    Pass text through command-line filters
+*piper.txt*  Pass text through command-line filters
 
 Author:  Richard Russon (flatcap) <rich@flatcap.org>
 License: Same terms as Vim itself (see |license|)
@@ -12,21 +12,22 @@ e.g. sort, uniq, nl.
 
 COMMANDS                                        *piper-commands*
 
-There are seven commands by default:
+There are eight commands by default:
 
   Mnemonic  Command      Description ~
+  1         sort -n      Numeric sort
   c         column -t    Arrange text in columns
   n         nl -nrz -w4  Add 4 digit line numbers
   r         rev          Write each line backwards
   s         sort -f      Sort the file
   t         tac          Reverse the file
   u         uniq         Remove duplicates
-  x         sort -R      Randomise (miX up)
-  
+  x         shuf         Randomise (miX up)
+
 MAPPINGS                                        *piper-mappings*
 
 Each command has three mappings.
-Each mapping begins with  cp (remember this as Change using a Pipe), followed
+Each mapping begins with cp (remember this as Change using a Pipe), followed
 by a letter from the table above: |piper-commands|
 For example, the mappings for the "rev" command are:
 
@@ -90,42 +91,43 @@ cpuu                    Run current line through the  "uniq" command.
 cpU                     Run the "uniq" command on the entire file.
 
                                                 *cpx*
-cpx{motion}             Run text within {motion} through the "sort -R" (random) command.
+cpx{motion}             Run text within {motion} through the "shuf" (random) command.
 
                                                 *cpxx*
-cpxx                    Run current line through the  "sort -R" command.
+cpxx                    Run current line through the  "shuf" command.
 
                                                 *cpX*
-cpX                     Run the "sort -R" command on the entire file.
+cpX                     Run the "shuf" command on the entire file.
 
 CONFIGURATION                                   *piper-configuration*
 
 The pipes are initialised from a vim dictionary.  Here's the default:
 
   let g:piper_commands = {
-  	\ 'c': 'LANG=C column -t',
-  	\ 'n': 'LANG=C nl -nrz -w4',
-  	\ 'r': 'LANG=C rev',
-  	\ 's': 'LANG=C sort -f',
-  	\ 't': 'LANG=C tac',
-  	\ 'u': 'LANG=C uniq',
-  	\ 'x': 'LANG=C sort -R',
+      \ '1': 'LANG=C sort -n',
+      \ 'c': 'LANG=C column -t',
+      \ 'n': 'LANG=C nl -nrz -w4',
+      \ 'r': 'LANG=C rev',
+      \ 's': 'LANG=C sort -f',
+      \ 't': 'LANG=C tac',
+      \ 'u': 'LANG=C uniq',
+      \ 'x': 'LANG=C shuf',
   \ }
 
 To add your own command, or change the parameters for an existing command,
 copy the script, above, into your .vimrc (before the call to pathogen).
 
-EXAMPLES                                        *piper-examples*
+EXAMPLES                                                *piper-examples*
 
   Type This     Result ~
   cpsip         Current paragraph is sorted
   cpx9j         Ten lines are randomised
   cpN           Add lines numbers to the entire file
 
-ABOUT                                           *piper-about*
+ABOUT                                                   *piper-about*
 
 Grab the latest version or report a bug on GitHub:
 
 http://github.com/flatcap/vim-piper
 
- vim:tw=78:et:ft=help:norl:
+ vim:tw=78:ts=2:sw=2:et:ft=help:norl:
