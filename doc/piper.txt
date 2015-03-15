@@ -15,8 +15,8 @@ COMMANDS                                        *piper-commands*
 There are eight commands by default:
 
   Mnemonic  Command      Description ~
-  1         sort -n      Numeric sort
   c         column -t    Arrange text in columns
+  m         sort -n      Numeric sort
   n         nl -nrz -w4  Add 4 digit line numbers
   r         rev          Write each line backwards
   s         sort -f      Sort the file
@@ -44,6 +44,15 @@ cpcc                    Run current line through the  "column" command.
 
                                                 *cpC*
 cpC                     Run the "column" command on the entire file.
+
+                                                *cpm*
+cpm{motion}             Run text within {motion} through the "sort -n" command.
+
+                                                *cpmm*
+cpmm                    Run current line through the "sort -n" command.
+
+                                                *cpC*
+cpM                     Run the "sort -n" command on the entire file.
 
                                                 *cpn*
 cpn{motion}             Run text within {motion} through the "nl" command.
@@ -104,8 +113,8 @@ CONFIGURATION                                   *piper-configuration*
 The pipes are initialised from a vim dictionary.  Here's the default:
 
   let g:piper_commands = {
-      \ '1': 'LANG=C sort -n',
       \ 'c': 'LANG=C column -t',
+      \ 'm': 'LANG=C sort -n',
       \ 'n': 'LANG=C nl -nrz -w4',
       \ 'r': 'LANG=C rev',
       \ 's': 'LANG=C sort -f',

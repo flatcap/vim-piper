@@ -8,8 +8,8 @@ There are eight commands by default:
 
 | Key | Command       | Description            |
 | --- | ------------- | ---------------------- |
-| 1   | sort -n       | Numeric sort           |
 | c   | column -t     | Put data into columns  |
+| m   | sort -n       | Numeric sort           |
 | n   | nl -nrz -w4   | Number lines           |
 | r   | rev           | Reverse each line      |
 | s   | sort -f       | Sort (fold case)       |
@@ -33,12 +33,12 @@ e.g.
 
 | Mapping     | Description                                                   |
 | -------     | ------------------------------------------------------------- |
-| cp1{motion} | Run text within {motion} through the "nl" command.            |
-| cp11        | Run current line through the  "nl" command.                   |
-| cp!         | Run the "nl" command on the entire file.                      |
 | cpc{motion} | Run text within {motion} through the "column" command.        |
 | cpcc        | Run current line through the  "column" command.               |
 | cpC         | Run the "column" command on the entire file.                  |
+| cpm{motion} | Run text within {motion} through the "sort -n" command.       |
+| cpmm        | Run current line through the  "sort -n" command.              |
+| cpM         | Run the "sort -n" command on the entire file.                 |
 | cpn{motion} | Run text within {motion} through the "nl" command.            |
 | cpnn        | Run current line through the  "nl" command.                   |
 | cpN         | Run the "nl" command on the entire file.                      |
@@ -63,8 +63,8 @@ e.g.
 The pipes are initialised from a vim dictionary.  Here's the default:
 
     let g:piper_commands = {
-        \ '1': 'LANG=C sort -n',
         \ 'c': 'LANG=C column -t',
+        \ 'm': 'LANG=C sort -n',
         \ 'n': 'LANG=C nl -nrz -w4',
         \ 'r': 'LANG=C rev',
         \ 's': 'LANG=C sort -f',
