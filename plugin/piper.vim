@@ -12,14 +12,15 @@ let g:loaded_piper = 1
 
 if !exists("g:piper_command_list")
 	let g:piper_command_list = {
-		\ 'm': 'LANG=C sort -n',
 		\ 'c': 'LANG=C column -t',
-		\ 'n': 'LANG=C nl -nrz -w4',
+		\ 'l': 'LANG=C nl -nrz -w4',
+		\ 'n': 'LANG=C sort -n',
 		\ 'r': 'LANG=C rev',
 		\ 's': 'LANG=C sort -f',
 		\ 't': 'LANG=C tac',
 		\ 'u': 'LANG=C uniq',
 		\ 'x': 'LANG=C shuf',
+		\ 'z': 'LANG=C cat -s',
 	\ }
 endif
 

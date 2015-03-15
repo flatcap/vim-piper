@@ -12,17 +12,18 @@ e.g. sort, uniq, nl.
 
 COMMANDS                                        *piper-commands*
 
-There are eight commands by default:
+There are nine commands by default:
 
   Mnemonic  Command      Description ~
-  c         column -t    Arrange text in columns
-  m         sort -n      Numeric sort
-  n         nl -nrz -w4  Add 4 digit line numbers
-  r         rev          Write each line backwards
-  s         sort -f      Sort the file
-  t         tac          Reverse the file
-  u         uniq         Remove duplicates
-  x         shuf         Randomise (miX up)
+  c         column -t    put data into (C)olumns
+  l         nl -nrz -w4  (L)ine numbers
+  n         sort -n      (N)umeric sort
+  r         rev          (R)everse each line
+  s         sort -f      (S)ort lines (fold case)
+  t         tac          (T)ac (reverse the file)
+  u         uniq         (U)nique (remove duplicate lines)
+  x         shuf         mi(X) up the file
+  z         cat -s       squee(z)e blank lines
 
 MAPPINGS                                        *piper-mappings*
 
@@ -36,77 +37,86 @@ For example, the mappings for the "rev" command are:
   cprr          Filter the current line
   cpR           Filter the entire file (note the capital letter)
 
-                                                *cpc*
-cpc{motion}             Run text within {motion} through the "column" command.
+                                                        *cpc*
+cpc{motion}  Run text within {motion} through the "column -t" command
 
-                                                *cpcc*
-cpcc                    Run current line through the  "column" command.
+                                                        *cpcc*
+cpcc         Run current line through the  "column -t" command
 
-                                                *cpC*
-cpC                     Run the "column" command on the entire file.
+                                                        *cpC*
+cpC          Run the "column -t" command on the entire file
 
-                                                *cpm*
-cpm{motion}             Run text within {motion} through the "sort -n" command.
+                                                        *cpl*
+cpl{motion}  Run text within {motion} through the "nl" command
 
-                                                *cpmm*
-cpmm                    Run current line through the "sort -n" command.
+                                                        *cpll*
+cpll         Run current line through the  "nl" command
 
-                                                *cpC*
-cpM                     Run the "sort -n" command on the entire file.
+                                                        *cpL*
+cpL          Run the "nl" command on the entire file
 
-                                                *cpn*
-cpn{motion}             Run text within {motion} through the "nl" command.
+                                                        *cpn*
+cpn{motion}  Run text within {motion} through the "sort -n" command
 
-                                                *cpnn*
-cpnn                    Run current line through the  "nl" command.
+                                                        *cpnn*
+cpnn         Run current line through the  "sort -n" command
 
-                                                *cpN*
-cpN                     Run the "nl" command on the entire file.
+                                                        *cpN*
+cpN          Run the "sort -n" command on the entire file
 
-                                                *cpr*
-cpr{motion}             Run text within {motion} through the "rev" command.
+                                                        *cpr*
+cpr{motion}  Run text within {motion} through the "rev" command
 
-                                                *cprr*
-cprr                    Run current line through the  "rev" command.
+                                                        *cprr*
+cprr         Run current line through the  "rev" command
 
-                                                *cpR*
-cpR                     Run the "rev" command on the entire file.
+                                                        *cpR*
+cpR          Run the "rev" command on the entire file
 
-                                                *cps*
-cps{motion}             Run text within {motion} through the "sort" command.
+                                                        *cps*
+cps{motion}  Run text within {motion} through the "sort -f" command
 
-                                                *cpss*
-cpss                    Run current line through the  "sort" command.
+                                                        *cpss*
+cpss         Run current line through the  "sort -f" command
 
-                                                *cpS*
-cpS                     Run the "sort" command on the entire file.
+                                                        *cpS*
+cpS          Run the "sort -f" command on the entire file
 
-                                                *cpt*
-cpt{motion}             Run text within {motion} through the "tac" command.
+                                                        *cpt*
+cpt{motion}  Run text within {motion} through the "tac" command
 
-                                                *cptt*
-cptt                    Run current line through the  "tac" command.
+                                                        *cptt*
+cptt         Run current line through the  "tac" command
 
-                                                *cpT*
-cpT                     Run the "tac" command on the entire file.
+                                                        *cpT*
+cpT          Run the "tac" command on the entire file
 
-                                                *cpu*
-cpu{motion}             Run text within {motion} through the "uniq" command.
+                                                        *cpu*
+cpu{motion}  Run text within {motion} through the "uniq" command
 
-                                                *cpuu*
-cpuu                    Run current line through the  "uniq" command.
+                                                        *cpuu*
+cpuu         Run current line through the  "uniq" command
 
-                                                *cpU*
-cpU                     Run the "uniq" command on the entire file.
+                                                        *cpU*
+cpU          Run the "uniq" command on the entire file
 
-                                                *cpx*
-cpx{motion}             Run text within {motion} through the "shuf" (random) command.
+                                                        *cpx*
+cpx{motion}  Run text within {motion} through the "shuf" command
 
-                                                *cpxx*
-cpxx                    Run current line through the  "shuf" command.
+                                                        *cpxx*
+cpxx         Run current line through the  "shuf" command
 
-                                                *cpX*
-cpX                     Run the "shuf" command on the entire file.
+                                                        *cpX*
+cpX          Run the "shuf" command on the entire file
+
+                                                        *cpz*
+cpz{motion}  Run text within {motion} through the "cat -s" command
+
+                                                        *cpzz*
+cpzz         Run current line through the  "cat -s" command
+
+                                                        *cpZ*
+cpZ          Run the "cat -s" command on the entire file
 
 CONFIGURATION                                   *piper-configuration*
 

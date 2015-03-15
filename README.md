@@ -4,18 +4,19 @@ vim-piper: The magic of pipes.
 
 # Commands
 
-There are eight commands by default:
+There are nine commands by default:
 
-| Key | Command       | Description            |
-| --- | ------------- | ---------------------- |
-| c   | column -t     | Put data into columns  |
-| m   | sort -n       | Numeric sort           |
-| n   | nl -nrz -w4   | Number lines           |
-| r   | rev           | Reverse each line      |
-| s   | sort -f       | Sort (fold case)       |
-| t   | tac           | Reverse the file       |
-| u   | uniq          | Remove duplicate lines |
-| x   | shuf          | Randomise the file     |
+| Key | Command       | Description                       |
+| --- | ------------- | --------------------------------- |
+| c   | column -t     | put data into (C)olumns           |
+| l   | nl -nrz -w4   | (L)ine numbers                    |
+| n   | sort -n       | (N)umeric sort                    |
+| r   | rev           | (R)everse each line               |
+| s   | sort -f       | (S)ort lines (fold case)          |
+| t   | tac           | (T)ac (reverse the file)          |
+| u   | uniq          | (U)nique (remove duplicate lines) |
+| x   | shuf          | mi(X) up the file                 |
+| z   | cat -s        | squee(z)e blank lines             |
 
 # Mappings
 
@@ -31,46 +32,50 @@ For example, the mappings for the "rev" command are:
 
 e.g.
 
-| Mapping     | Description                                                   |
-| -------     | ------------------------------------------------------------- |
-| cpc{motion} | Run text within {motion} through the "column" command.        |
-| cpcc        | Run current line through the  "column" command.               |
-| cpC         | Run the "column" command on the entire file.                  |
-| cpm{motion} | Run text within {motion} through the "sort -n" command.       |
-| cpmm        | Run current line through the  "sort -n" command.              |
-| cpM         | Run the "sort -n" command on the entire file.                 |
-| cpn{motion} | Run text within {motion} through the "nl" command.            |
-| cpnn        | Run current line through the  "nl" command.                   |
-| cpN         | Run the "nl" command on the entire file.                      |
-| cpr{motion} | Run text within {motion} through the "rev" command.           |
-| cprr        | Run current line through the  "rev" command.                  |
-| cpR         | Run the "rev" command on the entire file.                     |
-| cps{motion} | Run text within {motion} through the "sort" command.          |
-| cpss        | Run current line through the  "sort" command.                 |
-| cpS         | Run the "sort" command on the entire file.                    |
-| cpt{motion} | Run text within {motion} through the "tac" command.           |
-| cptt        | Run current line through the  "tac" command.                  |
-| cpT         | Run the "tac" command on the entire file.                     |
-| cpu{motion} | Run text within {motion} through the "uniq" command.          |
-| cpuu        | Run current line through the  "uniq" command.                 |
-| cpU         | Run the "uniq" command on the entire file.                    |
-| cpx{motion} | Run text within {motion} through the "shuf" (random) command. |
-| cpxx        | Run current line through the  "shuf" command.                 |
-| cpX         | Run the "shuf" command on the entire file.                    |
+| Mapping     | Description                                              |
+| ----------- | -------------------------------------------------------- |
+| cpc{motion} | Run text within {motion} through the "column -t" command |
+| cpcc        | Run current line through the  "column -t" command        |
+| cpC         | Run the "column -t" command on the entire file           |
+| cpl{motion} | Run text within {motion} through the "nl" command        |
+| cpll        | Run current line through the  "nl" command               |
+| cpL         | Run the "nl" command on the entire file                  |
+| cpn{motion} | Run text within {motion} through the "sort -n" command   |
+| cpnn        | Run current line through the  "sort -n" command          |
+| cpN         | Run the "sort -n" command on the entire file             |
+| cpr{motion} | Run text within {motion} through the "rev" command       |
+| cprr        | Run current line through the  "rev" command              |
+| cpR         | Run the "rev" command on the entire file                 |
+| cps{motion} | Run text within {motion} through the "sort -f" command   |
+| cpss        | Run current line through the  "sort -f" command          |
+| cpS         | Run the "sort -f" command on the entire file             |
+| cpt{motion} | Run text within {motion} through the "tac" command       |
+| cptt        | Run current line through the  "tac" command              |
+| cpT         | Run the "tac" command on the entire file                 |
+| cpu{motion} | Run text within {motion} through the "uniq" command      |
+| cpuu        | Run current line through the  "uniq" command             |
+| cpU         | Run the "uniq" command on the entire file                |
+| cpx{motion} | Run text within {motion} through the "shuf" command      |
+| cpxx        | Run current line through the  "shuf" command             |
+| cpX         | Run the "shuf" command on the entire file                |
+| cpz{motion} | Run text within {motion} through the "cat -s" command    |
+| cpzz        | Run current line through the  "cat -s" command           |
+| cpZ         | Run the "cat -s" command on the entire file              |
 
 # Configuration
 
 The pipes are initialised from a vim dictionary.  Here's the default:
 
-    let g:piper_commands = {
-        \ 'c': 'LANG=C column -t',
-        \ 'm': 'LANG=C sort -n',
-        \ 'n': 'LANG=C nl -nrz -w4',
-        \ 'r': 'LANG=C rev',
-        \ 's': 'LANG=C sort -f',
-        \ 't': 'LANG=C tac',
-        \ 'u': 'LANG=C uniq',
-        \ 'x': 'LANG=C shuf',
+    let g:piper_command_list = {
+	    \ 'c': 'LANG=C column -t',
+	    \ 'l': 'LANG=C nl -nrz -w4',
+	    \ 'n': 'LANG=C sort -n',
+	    \ 'r': 'LANG=C rev',
+	    \ 's': 'LANG=C sort -f',
+	    \ 't': 'LANG=C tac',
+	    \ 'u': 'LANG=C uniq',
+	    \ 'x': 'LANG=C shuf',
+	    \ 'z': 'LANG=C cat -s',
     \ }
 
 To add your own command, or change the parameters for an existing command,
