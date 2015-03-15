@@ -16,7 +16,7 @@ There are nine commands by default:
 | t   | tac           | (T)ac (reverse the file)          |
 | u   | uniq          | (U)nique (remove duplicate lines) |
 | x   | shuf          | mi(X) up the file                 |
-| z   | cat -s        | squee(z)e blank lines             |
+| z   | cat -s        | squee(Z)e blank lines             |
 
 # Mappings
 
@@ -87,7 +87,7 @@ copy the script, above, into your .vimrc (before the call to pathogen).
 | --------- | ------------------------------------ |
 | cpsip     | Current paragraph is sorted          |
 | cpx9j     | Ten lines are randomised             |
-| cpN       | Add lines numbers to the entire file |
+| cpL       | Add lines numbers to the entire file |
 
 ## License
 
