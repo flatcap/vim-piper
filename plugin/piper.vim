@@ -2,7 +2,7 @@
 " Author:       Rich Russon (flatcap) <rich@flatcap.org>
 " Website:      https://flatcap.org
 " Copyright:    2014-2015 Richard Russon
-" License:      GPLv2+
+" License:      Same as vim, see :help license
 " Version:      1.0
 
 if exists("g:loaded_piper") || &cp || v:version < 700
