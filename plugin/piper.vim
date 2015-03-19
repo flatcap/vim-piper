@@ -13,6 +13,7 @@ let g:loaded_piper = 1
 if !exists("g:piper_command_list")
 	let g:piper_command_list = {
 		\ 'c': 'LANG=C column -t',
+		\ 'e': 'LANG=C uniq -c',
 		\ 'l': 'LANG=C nl -nrz -w4',
 		\ 'n': 'LANG=C sort -n',
 		\ 'r': 'LANG=C rev',
