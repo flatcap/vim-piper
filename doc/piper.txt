@@ -12,10 +12,11 @@ e.g. sort, uniq, nl.
 
 COMMANDS                                        *piper-commands*
 
-There are nine commands by default:
+There are ten commands by default:
 
   Mnemonic  Command      Description ~
   c         column -t    put data into (C)olumns
+  e         uniq -c      (E)numerate (count) the duplicates
   l         nl -nrz -w4  (L)ine numbers
   n         sort -n      (N)umeric sort
   r         rev          (R)everse each line
@@ -37,101 +38,142 @@ For example, the mappings for the "rev" command are:
   cprr          Filter the current line
   cpR           Filter the entire file (note the capital letter)
 
-                                                        *cpc*
-cpc{motion}  Run text within {motion} through the "column -t" command
+                                                            *cpc*
+cpc{motion}     Run command "column -t" on the {motion}
+                Effect: Data are put into columns
 
-                                                        *cpcc*
-cpcc         Run current line through the  "column -t" command
+                                                            *cpcc*
+cpcc            Run command "column -t" on the current line
+                Effect: Data are put into columns
 
-                                                        *cpC*
-cpC          Run the "column -t" command on the entire file
+                                                            *cpC*
+cpC             Run command "column -t" on the entire file
+                Effect: Data are put into columns
 
-                                                        *cpl*
-cpl{motion}  Run text within {motion} through the "nl" command
+                                                            *cpe*
+cpe{motion}     Run command "uniq -c" on the {motion}
+                Effect: Duplicate lines are counted
 
-                                                        *cpll*
-cpll         Run current line through the  "nl" command
+                                                            *cpee*
+cpee            Run command "uniq -c" on the current line
+                Effect: Duplicate lines are counted
 
-                                                        *cpL*
-cpL          Run the "nl" command on the entire file
+                                                            *cpE*
+cpE             Run command "uniq -c" on the entire file
+                Effect: Duplicate lines are counted
 
-                                                        *cpn*
-cpn{motion}  Run text within {motion} through the "sort -n" command
+                                                            *cpl*
+cpl{motion}     Run command "nl -nrz -w4" on the {motion}
+                Effect: Lines are numbered
 
-                                                        *cpnn*
-cpnn         Run current line through the  "sort -n" command
+                                                            *cpll*
+cpll            Run command "nl -nrz -w4" on the current line
+                Effect: Lines are numbered
 
-                                                        *cpN*
-cpN          Run the "sort -n" command on the entire file
+                                                            *cpL*
+cpL             Run command "nl -nrz -w4" on the entire file
+                Effect: Lines are numbered
 
-                                                        *cpr*
-cpr{motion}  Run text within {motion} through the "rev" command
+                                                            *cpn*
+cpn{motion}     Run command "sort -n" on the {motion}
+                Effect: Lines are sorted numerically
 
-                                                        *cprr*
-cprr         Run current line through the  "rev" command
+                                                            *cpnn*
+cpnn            Run command "sort -n" on the current line
+                Effect: Lines are sorted numerically
 
-                                                        *cpR*
-cpR          Run the "rev" command on the entire file
+                                                            *cpN*
+cpN             Run command "sort -n" on the entire file
+                Effect: Lines are sorted numerically
 
-                                                        *cps*
-cps{motion}  Run text within {motion} through the "sort -f" command
+                                                            *cpr*
+cpr{motion}     Run command "rev" on the {motion}
+                Effect: Each line is written backwards
 
-                                                        *cpss*
-cpss         Run current line through the  "sort -f" command
+                                                            *cprr*
+cprr            Run command "rev" on the current line
+                Effect: Each line is written backwards
 
-                                                        *cpS*
-cpS          Run the "sort -f" command on the entire file
+                                                            *cpR*
+cpR             Run command "rev" on the entire file
+                Effect: Each line is written backwards
 
-                                                        *cpt*
-cpt{motion}  Run text within {motion} through the "tac" command
+                                                            *cps*
+cps{motion}     Run command "sort -f" on the {motion}
+                Effect: Lines are sorted (ignoring case)
 
-                                                        *cptt*
-cptt         Run current line through the  "tac" command
+                                                            *cpss*
+cpss            Run command "sort -f" on the current line
+                Effect: Lines are sorted (ignoring case)
 
-                                                        *cpT*
-cpT          Run the "tac" command on the entire file
+                                                            *cpS*
+cpS             Run command "sort -f" on the entire file
+                Effect: Lines are sorted (ignoring case)
 
-                                                        *cpu*
-cpu{motion}  Run text within {motion} through the "uniq" command
+                                                            *cpt*
+cpt{motion}     Run command "tac" on the {motion}
+                Effect: Lines are written in reverse order
 
-                                                        *cpuu*
-cpuu         Run current line through the  "uniq" command
+                                                            *cptt*
+cptt            Run command "tac" on the current line
+                Effect: Lines are written in reverse order
 
-                                                        *cpU*
-cpU          Run the "uniq" command on the entire file
+                                                            *cpT*
+cpT             Run command "tac" on the entire file
+                Effect: Lines are written in reverse order
 
-                                                        *cpx*
-cpx{motion}  Run text within {motion} through the "shuf" command
+                                                            *cpu*
+cpu{motion}     Run command "uniq" on the {motion}
+                Effect: Duplicate lines are removed
 
-                                                        *cpxx*
-cpxx         Run current line through the  "shuf" command
+                                                            *cpuu*
+cpuu            Run command "uniq" on the current line
+                Effect: Duplicate lines are removed
 
-                                                        *cpX*
-cpX          Run the "shuf" command on the entire file
+                                                            *cpU*
+cpU             Run command "uniq" on the entire file
+                Effect: Duplicate lines are removed
 
-                                                        *cpz*
-cpz{motion}  Run text within {motion} through the "cat -s" command
+                                                            *cpx*
+cpx{motion}     Run command "shuf" on the {motion}
+                Effect: Lines are written in a random order
 
-                                                        *cpzz*
-cpzz         Run current line through the  "cat -s" command
+                                                            *cpxx*
+cpxx            Run command "shuf" on the current line
+                Effect: Lines are written in a random order
 
-                                                        *cpZ*
-cpZ          Run the "cat -s" command on the entire file
+                                                            *cpX*
+cpX             Run command "shuf" on the entire file
+                Effect: Lines are written in a random order
+
+                                                            *cpz*
+cpz{motion}     Run command "cat -s" on the {motion}
+                Effect: Duplicate blank lines are removed
+
+                                                            *cpzz*
+cpzz            Run command "cat -s" on the current line
+                Effect: Duplicate blank lines are removed
+
+                                                            *cpZ*
+cpZ             Run command "cat -s" on the entire file
+                Effect: Duplicate blank lines are removed
 
 CONFIGURATION                                   *piper-configuration*
 
 The pipes are initialised from a vim dictionary.  Here's the default:
 
-  let g:piper_commands = {
-      \ 'c': 'LANG=C column -t',
-      \ 'm': 'LANG=C sort -n',
-      \ 'n': 'LANG=C nl -nrz -w4',
-      \ 'r': 'LANG=C rev',
-      \ 's': 'LANG=C sort -f',
-      \ 't': 'LANG=C tac',
-      \ 'u': 'LANG=C uniq',
-      \ 'x': 'LANG=C shuf',
-  \ }
+    let g:piper_command_list = {
+        \ 'c': 'LANG=C column -t',
+        \ 'e': 'LANG=C uniq -c',
+        \ 'l': 'LANG=C nl -nrz -w4',
+        \ 'n': 'LANG=C sort -n',
+        \ 'r': 'LANG=C rev',
+        \ 's': 'LANG=C sort -f',
+        \ 't': 'LANG=C tac',
+        \ 'u': 'LANG=C uniq',
+        \ 'x': 'LANG=C shuf',
+        \ 'z': 'LANG=C cat -s',
+    \ }
 
 To add your own command, or change the parameters for an existing command,
 copy the script, above, into your .vimrc (before the call to pathogen).
