@@ -51,10 +51,12 @@ for i in keys(g:piper_command_list)
 	"       PiperA all the file
 	"       PiperL line (single)
 
-	execute 'xmap cp'.i.'   <plug>PiperV_'.i
-	execute 'nmap cp'.i.'   <plug>PiperM_'.i
-	execute 'nmap cp'.i.i.' <plug>PiperL_'.i
-	execute 'nmap cp'.u.'   <plug>PiperA_'.i
+	if get(g:, 'piper_create_mappings', 1)
+		execute 'xmap cp'.i.'   <plug>PiperV_'.i
+		execute 'nmap cp'.i.'   <plug>PiperM_'.i
+		execute 'nmap cp'.i.i.' <plug>PiperL_'.i
+		execute 'nmap cp'.u.'   <plug>PiperA_'.i
+	endif
 endfor
 
 " vim:set noet ts=8 sw=8:
