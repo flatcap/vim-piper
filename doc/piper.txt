@@ -7,7 +7,7 @@ This plugin is only available if 'compatible' is not set.
 
 INTRODUCTION                                    *piper*
 
-Same time by creating mappings for common filtering commands.
+Save time by creating mappings for common filtering commands.
 e.g. sort, uniq, nl.
 
 COMMANDS                                        *piper-commands*
@@ -27,6 +27,15 @@ There are ten commands by default:
   z         cat -s       squee(Z)e blank lines
 
 MAPPINGS                                        *piper-mappings*
+
+First, it's a good idea to create a mapping to show the mappings.
+This will list all the shortcuts and the commands they call:
+
+  nmap <silent> <F6> <Plug>PiperShowMappings
+
+Alternatively, you can
+
+  :call PiperShowMappings()
 
 Each command has three mappings.
 Each mapping begins with cp (remember this as Change using a Pipe), followed
@@ -162,21 +171,21 @@ CONFIGURATION                                   *piper-configuration*
 
 The pipes are initialised from a vim dictionary.  Here's the default:
 
-    let g:piper_command_list = {
-        \ 'c': 'LANG=C column -t',
-        \ 'e': 'LANG=C uniq -c',
-        \ 'l': 'LANG=C nl -nrz -w4',
-        \ 'n': 'LANG=C sort -n',
-        \ 'r': 'LANG=C rev',
-        \ 's': 'LANG=C sort -f',
-        \ 't': 'LANG=C tac',
-        \ 'u': 'LANG=C uniq',
-        \ 'x': 'LANG=C shuf',
-        \ 'z': 'LANG=C cat -s',
-    \ }
+  let g:piper_command_list = {
+      \ 'c': 'LANG=C column -t',
+      \ 'e': 'LANG=C uniq -c',
+      \ 'l': 'LANG=C nl -nrz -w4',
+      \ 'n': 'LANG=C sort -n',
+      \ 'r': 'LANG=C rev',
+      \ 's': 'LANG=C sort -f',
+      \ 't': 'LANG=C tac',
+      \ 'u': 'LANG=C uniq',
+      \ 'x': 'LANG=C shuf',
+      \ 'z': 'LANG=C cat -s',
+  \ }
 
 To add your own command, or change the parameters for an existing command,
-copy the script, above, into your .vimrc (before the call to pathogen).
+copy the script, above, into your .vimrc
 
 EXAMPLES                                                *piper-examples*
 
