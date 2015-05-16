@@ -27,7 +27,7 @@ endif
 
 let g:piper_command = ''
 
-function! g:PiperShowMappings()
+function! PiperShowMappings()
 	let l:old_more = &l:more
 	let &l:more = 1
 
