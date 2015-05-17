@@ -10,8 +10,8 @@ if (exists ('g:loaded_piper') || &cp || (v:version < 700))
 endif
 let g:loaded_piper = 1
 
-if (!exists ('g:piper_command_list'))
-	let g:piper_command_list = {
+" Set default value
+let g:piper_command_list = get (g:, 'piper_command_list', {
 		\ 'c': 'LANG=C column -t',
 		\ 'e': 'LANG=C uniq -c',
 		\ 'l': 'LANG=C nl -nrz -w4',
@@ -22,8 +22,7 @@ if (!exists ('g:piper_command_list'))
 		\ 'u': 'LANG=C uniq',
 		\ 'x': 'LANG=C shuf',
 		\ 'z': 'LANG=C cat -s',
-	\ }
-endif
+	\ } )
 
 let g:piper_command = ''
 
@@ -52,7 +51,7 @@ function! s:go (...)
 	execute l:start . ',' . l:stop . '!' . g:piper_command_list[g:piper_command]
 endfunction
 
-function s:set_up_mappings()
+function! s:set_up_mappings()
 	for l:i in keys (g:piper_command_list)
 		let l:u = toupper (l:i)
 
