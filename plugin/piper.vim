@@ -13,6 +13,7 @@ let g:loaded_piper = 1
 " Set default value
 let g:piper_command_list = get (g:, 'piper_command_list', {
 		\ 'c': 'LANG=C column -t',
+		\ 'd': 'LANG=C uniq -d',
 		\ 'e': 'LANG=C uniq -c',
 		\ 'l': 'LANG=C nl -nrz -w4',
 		\ 'n': 'LANG=C sort -n',

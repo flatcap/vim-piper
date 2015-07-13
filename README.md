@@ -4,11 +4,12 @@ The magic of pipes.
 
 # Commands
 
-There are ten commands by default:
+There are eleven commands by default:
 
 | Key | Command     | Mnemonic                           |
 | --- | ----------- | ---------------------------------- |
 | c   | column -t   | (C)olumn                           |
+| d   | uniq -d     | show only (D)uplicate lines        |
 | e   | uniq -c     | (E)numerate (count) the duplicates |
 | l   | nl -nrz -w4 | (L)ine numbers                     |
 | n   | sort -n     | (N)umeric sort                     |
@@ -48,6 +49,9 @@ e.g.
 | cpc\{motion\} | \{motion\}    | column -t   | Data are put into columns           |
 | cpcc          | current line  | column -t   | Data are put into columns           |
 | cpC           | entire file   | column -t   | Data are put into columns           |
+| cpd\{motion\} | \{motion\}    | uniq -d     | Only duplicate lines are shown      |
+| cpdd          | current line  | uniq -d     | Only duplicate lines are shown      |
+| cpD           | entire file   | uniq -d     | Only duplicate lines are shown      |
 | cpe\{motion\} | \{motion\}    | uniq -c     | Duplicate lines are counted         |
 | cpee          | current line  | uniq -c     | Duplicate lines are counted         |
 | cpE           | entire file   | uniq -c     | Duplicate lines are counted         |
@@ -82,6 +86,7 @@ The pipes are initialised from a vim dictionary.  Here's the default:
 
     let g:piper_command_list = {
         \ 'c': 'LANG=C column -t',
+        \ 'd': 'LANG=C uniq -d',
         \ 'e': 'LANG=C uniq -c',
         \ 'l': 'LANG=C nl -nrz -w4',
         \ 'n': 'LANG=C sort -n',

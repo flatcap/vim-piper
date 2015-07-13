@@ -12,10 +12,11 @@ e.g. sort, uniq, nl.
 
 COMMANDS                                        *piper-commands*
 
-There are ten commands by default:
+There are eleven commands by default:
 
   Mnemonic  Command      Description ~
   c         column -t    put data into (C)olumns
+  d         uniq -d      show only (D)uplicate lines
   e         uniq -c      (E)numerate (count) the duplicates
   l         nl -nrz -w4  (L)ine numbers
   n         sort -n      (N)umeric sort
@@ -58,6 +59,18 @@ cpcc            Run command "column -t" on the current line
                                                             *cpC*
 cpC             Run command "column -t" on the entire file
                 Effect: Data are put into columns
+
+                                                            *cpd*
+cpd{motion}     Run command "uniq -d" on the {motion}
+                Effect: Only duplicate lines are left
+
+                                                            *cpdd*
+cpdd            Run command "uniq -d" on the current line
+                Effect: Only duplicate lines are left
+
+                                                            *cpD*
+cpD             Run command "uniq -d" on the entire file
+                Effect: Only duplicate lines are left
 
                                                             *cpe*
 cpe{motion}     Run command "uniq -c" on the {motion}
@@ -173,6 +186,7 @@ The pipes are initialised from a vim dictionary.  Here's the default:
 
   let g:piper_command_list = {
       \ 'c': 'LANG=C column -t',
+      \ 'd': 'LANG=C uniq -d',
       \ 'e': 'LANG=C uniq -c',
       \ 'l': 'LANG=C nl -nrz -w4',
       \ 'n': 'LANG=C sort -n',
