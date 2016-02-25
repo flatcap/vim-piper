@@ -14,18 +14,18 @@ COMMANDS                                        *piper-commands*
 
 There are eleven commands by default:
 
-  Mnemonic  Command      Description ~
-  c         column -t    put data into (C)olumns
-  d         uniq -d      show only (D)uplicate lines
-  e         uniq -c      (E)numerate (count) the duplicates
-  l         nl -nrz -w4  (L)ine numbers
-  n         sort -n      (N)umeric sort
-  r         rev          (R)everse each line
-  s         sort -f      (S)ort lines (fold case)
-  t         tac          (T)ac (reverse the file)
-  u         uniq         (U)nique (remove duplicate lines)
-  x         shuf         mi(X) up the file
-  z         cat -s       squee(Z)e blank lines
+  Mnemonic  Command         Description ~
+  c         column -t       put data into (C)olumns
+  d         uniq -d         show only (D)uplicate lines
+  e         uniq -c         (E)numerate (count) the duplicates
+  l         nl -nrz -w4 -ba (L)ine numbers
+  n         sort -n         (N)umeric sort
+  r         rev             (R)everse each line
+  s         sort -f         (S)ort lines (fold case)
+  t         tac             (T)ac (reverse the file)
+  u         uniq            (U)nique (remove duplicate lines)
+  x         shuf            mi(X) up the file
+  z         cat -s          squee(Z)e blank lines
 
 MAPPINGS                                        *piper-mappings*
 
@@ -85,15 +85,15 @@ cpE             Run command "uniq -c" on the entire file
                 Effect: Duplicate lines are counted
 
                                                             *cpl*
-cpl{motion}     Run command "nl -nrz -w4" on the {motion}
+cpl{motion}     Run command "nl -nrz -w4 -ba" on the {motion}
                 Effect: Lines are numbered
 
                                                             *cpll*
-cpll            Run command "nl -nrz -w4" on the current line
+cpll            Run command "nl -nrz -w4 -ba" on the current line
                 Effect: Lines are numbered
 
                                                             *cpL*
-cpL             Run command "nl -nrz -w4" on the entire file
+cpL             Run command "nl -nrz -w4 -ba" on the entire file
                 Effect: Lines are numbered
 
                                                             *cpn*
@@ -188,7 +188,7 @@ The pipes are initialised from a vim dictionary.  Here's the default:
       \ 'c': 'LANG=C column -t',
       \ 'd': 'LANG=C uniq -d',
       \ 'e': 'LANG=C uniq -c',
-      \ 'l': 'LANG=C nl -nrz -w4',
+      \ 'l': 'LANG=C nl -nrz -w4 -ba',
       \ 'n': 'LANG=C sort -n',
       \ 'r': 'LANG=C rev',
       \ 's': 'LANG=C sort -f',

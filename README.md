@@ -6,19 +6,19 @@ The magic of pipes.
 
 There are eleven commands by default:
 
-| Key | Command     | Mnemonic                           |
-| --- | ----------- | ---------------------------------- |
-| c   | column -t   | (C)olumn                           |
-| d   | uniq -d     | show only (D)uplicate lines        |
-| e   | uniq -c     | (E)numerate (count) the duplicates |
-| l   | nl -nrz -w4 | (L)ine numbers                     |
-| n   | sort -n     | (N)umeric sort                     |
-| r   | rev         | (R)everse each                     |
-| s   | sort -f     | (S)ort lines (fold case)           |
-| t   | tac         | (T)ac (reverse the file)           |
-| u   | uniq        | (U)nique (remove duplicate lines)  |
-| x   | shuf        | mi(X) up lines                     |
-| z   | cat -s      | squee(Z)e blank lines              |
+| Key | Command         | Mnemonic                           |
+| --- | --------------- | ---------------------------------- |
+| c   | column -t       | (C)olumn                           |
+| d   | uniq -d         | show only (D)uplicate lines        |
+| e   | uniq -c         | (E)numerate (count) the duplicates |
+| l   | nl -nrz -w4 -ba | (L)ine numbers                     |
+| n   | sort -n         | (N)umeric sort                     |
+| r   | rev             | (R)everse each                     |
+| s   | sort -f         | (S)ort lines (fold case)           |
+| t   | tac             | (T)ac (reverse the file)           |
+| u   | uniq            | (U)nique (remove duplicate lines)  |
+| x   | shuf            | mi(X) up lines                     |
+| z   | cat -s          | squee(Z)e blank lines              |
 
 # Mappings
 
@@ -44,41 +44,41 @@ For example, the mappings for the "rev" command are:
 
 e.g.
 
-| Mapping       | Works on      | Command     | Effect                              |
-| ------------- | ------------- | ----------- | ----------------------------------- |
-| cpc\{motion\} | \{motion\}    | column -t   | Data are put into columns           |
-| cpcc          | current line  | column -t   | Data are put into columns           |
-| cpC           | entire file   | column -t   | Data are put into columns           |
-| cpd\{motion\} | \{motion\}    | uniq -d     | Only duplicate lines are shown      |
-| cpdd          | current line  | uniq -d     | Only duplicate lines are shown      |
-| cpD           | entire file   | uniq -d     | Only duplicate lines are shown      |
-| cpe\{motion\} | \{motion\}    | uniq -c     | Duplicate lines are counted         |
-| cpee          | current line  | uniq -c     | Duplicate lines are counted         |
-| cpE           | entire file   | uniq -c     | Duplicate lines are counted         |
-| cpl\{motion\} | \{motion\}    | nl -nrz -w4 | Lines are numbered                  |
-| cpll          | current line  | nl -nrz -w4 | Lines are numbered                  |
-| cpL           | entire file   | nl -nrz -w4 | Lines are numbered                  |
-| cpn\{motion\} | \{motion\}    | sort -n     | Lines are sorted numerically        |
-| cpnn          | current line  | sort -n     | Lines are sorted numerically        |
-| cpN           | entire file   | sort -n     | Lines are sorted numerically        |
-| cpr\{motion\} | \{motion\}    | rev         | Each line is written backwards      |
-| cprr          | current line  | rev         | Each line is written backwards      |
-| cpR           | entire file   | rev         | Each line is written backwards      |
-| cps\{motion\} | \{motion\}    | sort -f     | Lines are sorted (ignoring case)    |
-| cpss          | current line  | sort -f     | Lines are sorted (ignoring case)    |
-| cpS           | entire file   | sort -f     | Lines are sorted (ignoring case)    |
-| cpt\{motion\} | \{motion\}    | tac         | Lines are written in reverse order  |
-| cptt          | current line  | tac         | Lines are written in reverse order  |
-| cpT           | entire file   | tac         | Lines are written in reverse order  |
-| cpu\{motion\} | \{motion\}    | uniq        | Duplicate lines are removed         |
-| cpuu          | current line  | uniq        | Duplicate lines are removed         |
-| cpU           | entire file   | uniq        | Duplicate lines are removed         |
-| cpx\{motion\} | \{motion\}    | shuf        | Lines are written in a random order |
-| cpxx          | current line  | shuf        | Lines are written in a random order |
-| cpX           | entire file   | shuf        | Lines are written in a random order |
-| cpz\{motion\} | \{motion\}    | cat -s      | Duplicate blank lines are removed   |
-| cpzz          | current line  | cat -s      | Duplicate blank lines are removed   |
-| cpZ           | entire file   | cat -s      | Duplicate blank lines are removed   |
+| Mapping       | Works on      | Command         | Effect                              |
+| ------------- | ------------- | --------------- | ----------------------------------- |
+| cpc\{motion\} | \{motion\}    | column -t       | Data are put into columns           |
+| cpcc          | current line  | column -t       | Data are put into columns           |
+| cpC           | entire file   | column -t       | Data are put into columns           |
+| cpd\{motion\} | \{motion\}    | uniq -d         | Only duplicate lines are shown      |
+| cpdd          | current line  | uniq -d         | Only duplicate lines are shown      |
+| cpD           | entire file   | uniq -d         | Only duplicate lines are shown      |
+| cpe\{motion\} | \{motion\}    | uniq -c         | Duplicate lines are counted         |
+| cpee          | current line  | uniq -c         | Duplicate lines are counted         |
+| cpE           | entire file   | uniq -c         | Duplicate lines are counted         |
+| cpl\{motion\} | \{motion\}    | nl -nrz -w4 -ba | Lines are numbered                  |
+| cpll          | current line  | nl -nrz -w4 -ba | Lines are numbered                  |
+| cpL           | entire file   | nl -nrz -w4 -ba | Lines are numbered                  |
+| cpn\{motion\} | \{motion\}    | sort -n         | Lines are sorted numerically        |
+| cpnn          | current line  | sort -n         | Lines are sorted numerically        |
+| cpN           | entire file   | sort -n         | Lines are sorted numerically        |
+| cpr\{motion\} | \{motion\}    | rev             | Each line is written backwards      |
+| cprr          | current line  | rev             | Each line is written backwards      |
+| cpR           | entire file   | rev             | Each line is written backwards      |
+| cps\{motion\} | \{motion\}    | sort -f         | Lines are sorted (ignoring case)    |
+| cpss          | current line  | sort -f         | Lines are sorted (ignoring case)    |
+| cpS           | entire file   | sort -f         | Lines are sorted (ignoring case)    |
+| cpt\{motion\} | \{motion\}    | tac             | Lines are written in reverse order  |
+| cptt          | current line  | tac             | Lines are written in reverse order  |
+| cpT           | entire file   | tac             | Lines are written in reverse order  |
+| cpu\{motion\} | \{motion\}    | uniq            | Duplicate lines are removed         |
+| cpuu          | current line  | uniq            | Duplicate lines are removed         |
+| cpU           | entire file   | uniq            | Duplicate lines are removed         |
+| cpx\{motion\} | \{motion\}    | shuf            | Lines are written in a random order |
+| cpxx          | current line  | shuf            | Lines are written in a random order |
+| cpX           | entire file   | shuf            | Lines are written in a random order |
+| cpz\{motion\} | \{motion\}    | cat -s          | Duplicate blank lines are removed   |
+| cpzz          | current line  | cat -s          | Duplicate blank lines are removed   |
+| cpZ           | entire file   | cat -s          | Duplicate blank lines are removed   |
 
 # Configuration
 
@@ -88,7 +88,7 @@ The pipes are initialised from a vim dictionary.  Here's the default:
         \ 'c': 'LANG=C column -t',
         \ 'd': 'LANG=C uniq -d',
         \ 'e': 'LANG=C uniq -c',
-        \ 'l': 'LANG=C nl -nrz -w4',
+        \ 'l': 'LANG=C nl -nrz -w4 -ba',
         \ 'n': 'LANG=C sort -n',
         \ 'r': 'LANG=C rev',
         \ 's': 'LANG=C sort -f',
