@@ -1,7 +1,7 @@
 " piper.vim - The magic of pipes
 " Author:       Rich Russon (flatcap) <rich@flatcap.org>
 " Website:      https://flatcap.org
-" Copyright:    2014-2015 Richard Russon
+" Copyright:    2014-2021 Richard Russon
 " License:      GPLv3 <http://fsf.org/>
 " Version:      1.0
 
@@ -12,18 +12,22 @@ let g:loaded_piper = 1
 
 " Set default value
 let g:piper_command_list = get (g:, 'piper_command_list', {
-		\ 'c': 'LANG=C column -t',
-		\ 'd': 'LANG=C uniq -d',
-		\ 'e': 'LANG=C uniq -c',
-		\ 'l': 'LANG=C nl -nrz -w4 -ba',
-		\ 'n': 'LANG=C sort -n',
+		\ 'a': 'LANG=C ansifilter',
+		\ 'c': 'LANG=C column --table --output-separator " "',
+		\ 'd': 'LANG=C uniq --repeated',
+		\ 'e': 'LANG=C uniq --count',
+		\ 'f': 'LANG=C clang-format -assume-filename=%',
+		\ 'k': 'LANG=C sort --field-separator=: --key=1,1 --key=2,2n --key=3,3n',
+		\ 'l': 'LANG=C nl --number-format=rz --number-width=4',
+		\ 'n': 'LANG=C sort --numeric-sort',
 		\ 'r': 'LANG=C rev',
-		\ 's': 'LANG=C sort -f',
+		\ 's': 'LANG=C sort --ignore-case',
 		\ 't': 'LANG=C tac',
 		\ 'u': 'LANG=C uniq',
 		\ 'x': 'LANG=C shuf',
-		\ 'z': 'LANG=C cat -s',
+		\ 'z': 'LANG=C cat --squeeze-blank',
 	\ } )
+" Unused: bghijmopqvwy
 
 let g:piper_command = ''
 

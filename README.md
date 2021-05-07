@@ -4,13 +4,16 @@ The magic of pipes.
 
 # Commands
 
-There are eleven commands by default:
+There are fourteen commands by default:
 
 | Key | Command         | Mnemonic                           |
 | --- | --------------- | ---------------------------------- |
+| a   | ansifilter      | (A)nsifilter                       |
 | c   | column -t       | (C)olumn                           |
 | d   | uniq -d         | show only (D)uplicate lines        |
 | e   | uniq -c         | (E)numerate (count) the duplicates |
+| f   | clang-format    | (F)ormat source code               |
+| k   | sort -t: -k1,1  | Sort file by (K)ey                 |
 | l   | nl -nrz -w4 -ba | (L)ine numbers                     |
 | n   | sort -n         | (N)umeric sort                     |
 | r   | rev             | (R)everse each                     |
@@ -46,6 +49,9 @@ e.g.
 
 | Mapping       | Works on      | Command         | Effect                              |
 | ------------- | ------------- | --------------- | ----------------------------------- |
+| cpa\{motion\} | \{motion\}    | ansifilter      | ANSI sequences are stripped out     |
+| cpaa          | current line  | ansifilter      | ANSI sequences are stripped out     |
+| cpA           | entire file   | ansifilter      | ANSI sequences are stripped out     |
 | cpc\{motion\} | \{motion\}    | column -t       | Data are put into columns           |
 | cpcc          | current line  | column -t       | Data are put into columns           |
 | cpC           | entire file   | column -t       | Data are put into columns           |
@@ -55,6 +61,12 @@ e.g.
 | cpe\{motion\} | \{motion\}    | uniq -c         | Duplicate lines are counted         |
 | cpee          | current line  | uniq -c         | Duplicate lines are counted         |
 | cpE           | entire file   | uniq -c         | Duplicate lines are counted         |
+| cpf\{motion\} | \{motion\}    | clang-format    | Source lines are tidied             |
+| cpff          | current line  | clang-format    | Source lines are tidied             |
+| cpF           | entire file   | clang-format    | Source lines are tidied             |
+| cpk\{motion\} | \{motion\}    | sort -t: -k1,1  | Lines are sorted by key             |
+| cpkk          | current line  | sort -t: -k1,1  | Lines are sorted by key             |
+| cpK           | entire file   | sort -t: -k1,1  | Lines are sorted by key             |
 | cpl\{motion\} | \{motion\}    | nl -nrz -w4 -ba | Lines are numbered                  |
 | cpll          | current line  | nl -nrz -w4 -ba | Lines are numbered                  |
 | cpL           | entire file   | nl -nrz -w4 -ba | Lines are numbered                  |
@@ -85,17 +97,20 @@ e.g.
 The pipes are initialised from a vim dictionary.  Here's the default:
 
     let g:piper_command_list = {
-        \ 'c': 'LANG=C column -t',
-        \ 'd': 'LANG=C uniq -d',
-        \ 'e': 'LANG=C uniq -c',
-        \ 'l': 'LANG=C nl -nrz -w4 -ba',
-        \ 'n': 'LANG=C sort -n',
+        \ 'a': 'LANG=C ansifilter',
+        \ 'c': 'LANG=C column --table --output-separator " "',
+        \ 'd': 'LANG=C uniq --repeated',
+        \ 'e': 'LANG=C uniq --count',
+        \ 'f': 'LANG=C clang-format -assume-filename=%',
+        \ 'k': 'LANG=C sort --field-separator=: --key=1,1 --key=2,2n --key=3,3n',
+        \ 'l': 'LANG=C nl --number-format=rz --number-width=4',
+        \ 'n': 'LANG=C sort --numeric-sort',
         \ 'r': 'LANG=C rev',
-        \ 's': 'LANG=C sort -f',
+        \ 's': 'LANG=C sort --ignore-case',
         \ 't': 'LANG=C tac',
         \ 'u': 'LANG=C uniq',
         \ 'x': 'LANG=C shuf',
-        \ 'z': 'LANG=C cat -s',
+        \ 'z': 'LANG=C cat --squeeze-blank',
     \ }
 
 To add your own command, or change the parameters for an existing command,

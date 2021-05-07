@@ -12,20 +12,23 @@ e.g. sort, uniq, nl.
 
 COMMANDS                                        *piper-commands*
 
-There are eleven commands by default:
+There are fourteen commands by default:
 
-  Mnemonic  Command         Description ~
-  c         column -t       put data into (C)olumns
-  d         uniq -d         show only (D)uplicate lines
-  e         uniq -c         (E)numerate (count) the duplicates
-  l         nl -nrz -w4 -ba (L)ine numbers
-  n         sort -n         (N)umeric sort
-  r         rev             (R)everse each line
-  s         sort -f         (S)ort lines (fold case)
-  t         tac             (T)ac (reverse the file)
-  u         uniq            (U)nique (remove duplicate lines)
-  x         shuf            mi(X) up the file
-  z         cat -s          squee(Z)e blank lines
+  Mnemonic  Command          Description ~
+  a         ansifilter       (A)nsifilter                       
+  c         column -t        (C)olumn                           
+  d         uniq -d          show only (D)uplicate lines        
+  e         uniq -c          (E)numerate (count) the duplicates 
+  f         clang-format     (F)ormat source code               
+  k         sort -t: -k1,1   Sort file by (K)ey                 
+  l         nl -nrz -w4 -ba  (L)ine numbers                     
+  n         sort -n          (N)umeric sort                     
+  r         rev              (R)everse each                     
+  s         sort -f          (S)ort lines (fold case)           
+  t         tac              (T)ac (reverse the file)           
+  u         uniq             (U)nique (remove duplicate lines)  
+  x         shuf             mi(X) up lines                     
+  z         cat -s           squee(Z)e blank lines              
 
 MAPPINGS                                        *piper-mappings*
 
@@ -47,6 +50,18 @@ For example, the mappings for the "rev" command are:
   cpr           Filter region defined by vim {motion} commands
   cprr          Filter the current line
   cpR           Filter the entire file (note the capital letter)
+
+                                                            *cpa*
+cpa{motion}     Run command "ansifilter" on the {motion}
+                Effect: ANSI sequences are stripped out
+
+                                                            *cpaa*
+cpaa            Run command "ansifilter" on the current line
+                Effect: ANSI sequences are stripped out
+
+                                                            *cpA*
+cpA             Run command "ansifilter" on the entire file
+                Effect: ANSI sequences are stripped out
 
                                                             *cpc*
 cpc{motion}     Run command "column -t" on the {motion}
@@ -83,6 +98,31 @@ cpee            Run command "uniq -c" on the current line
                                                             *cpE*
 cpE             Run command "uniq -c" on the entire file
                 Effect: Duplicate lines are counted
+
+                                                            *cpf*
+cpf{motion}     Run command "clang-format" on the {motion}
+                Effect: Source lines are tidied
+
+                                                            *cpff*
+cpff            Run command "clang-format" on the current line
+                Effect: Source lines are tidied
+
+                                                            *cpF*
+cpF             Run command "clang-format" on the entire file
+                Effect: Source lines are tidied
+
+                                                            *cpk*
+
+cpk{motion}     Run command "sort -t: -k1,1 -k2,2n -k3,3n" on the {motion}
+                Effect: Lines are sorted by key
+
+                                                            *cpkk*
+cpkk            Run command "sort -t: -k1,1 -k2,2n -k3,3n" on the current line
+                Effect: Lines are sorted by key
+
+                                                            *cpK*
+cpK             Run command "sort -t: -k1,1 -k2,2n -k3,3n" on the entire file
+                Effect: Lines are sorted by key
 
                                                             *cpl*
 cpl{motion}     Run command "nl -nrz -w4 -ba" on the {motion}
@@ -185,17 +225,20 @@ CONFIGURATION                                   *piper-configuration*
 The pipes are initialised from a vim dictionary.  Here's the default:
 
   let g:piper_command_list = {
-      \ 'c': 'LANG=C column -t',
-      \ 'd': 'LANG=C uniq -d',
-      \ 'e': 'LANG=C uniq -c',
-      \ 'l': 'LANG=C nl -nrz -w4 -ba',
-      \ 'n': 'LANG=C sort -n',
+      \ 'a': 'LANG=C ansifilter',
+      \ 'c': 'LANG=C column --table --output-separator " "',
+      \ 'd': 'LANG=C uniq --repeated',
+      \ 'e': 'LANG=C uniq --count',
+      \ 'f': 'LANG=C clang-format -assume-filename=%',
+      \ 'k': 'LANG=C sort --field-separator=: --key=1,1 --key=2,2n --key=3,3n',
+      \ 'l': 'LANG=C nl --number-format=rz --number-width=4',
+      \ 'n': 'LANG=C sort --numeric-sort',
       \ 'r': 'LANG=C rev',
-      \ 's': 'LANG=C sort -f',
+      \ 's': 'LANG=C sort --ignore-case',
       \ 't': 'LANG=C tac',
       \ 'u': 'LANG=C uniq',
       \ 'x': 'LANG=C shuf',
-      \ 'z': 'LANG=C cat -s',
+      \ 'z': 'LANG=C cat --squeeze-blank',
   \ }
 
 To add your own command, or change the parameters for an existing command,
