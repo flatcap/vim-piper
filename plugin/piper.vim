@@ -32,8 +32,8 @@ let g:piper_command_list = get (g:, 'piper_command_list', {
 let g:piper_command = ''
 
 function! PiperShowMappings()
-	let l:old_more = &l:more
-	let &l:more = 1
+	let l:old_more = &more
+	let &more = 1
 
 	echohl MoreMsg
 	echo 'Vim Piper mappings:'
@@ -43,7 +43,7 @@ function! PiperShowMappings()
 		echom printf ("    %s : %s", l:i, g:piper_command_list[l:i])
 	endfor
 
-	let &l:more = l:old_more
+	let &more = l:old_more
 endfunction
 
 function! s:go (...)
