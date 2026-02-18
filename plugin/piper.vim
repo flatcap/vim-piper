@@ -53,6 +53,16 @@ function! PiperShowMappings()
 endfunction
 
 function! s:go (...)
+	if !has_key(g:piper_command_list, s:piper_command)
+		echoerr 'piper: unknown command key: ' . string(s:piper_command)
+		return
+	endif
+
+	if !&l:modifiable
+		echoerr 'piper: buffer is not modifiable'
+		return
+	endif
+
 	if (a:0 == 2)
 		let [l:start, l:stop] = [a:1, a:2]
 	else
@@ -61,6 +71,10 @@ function! s:go (...)
 	endif
 
 	execute l:start . ',' . l:stop . '!' . g:piper_command_list[s:piper_command]
+
+	if v:shell_error
+		echoerr 'piper: command failed (exit ' . v:shell_error . '): ' . g:piper_command_list[s:piper_command]
+	endif
 endfunction
 
 function! s:set_up_mappings()
