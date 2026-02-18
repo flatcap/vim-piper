@@ -78,7 +78,7 @@ function! s:set_up_mappings()
 		endif
 	endfor
 
-	nnoremap <Plug>PiperShowMappings :call g:PiperShowMappings()<CR>
+	nnoremap <silent> <Plug>PiperShowMappings :call PiperShowMappings()<CR>
 endfunction
 
 
