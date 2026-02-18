@@ -37,7 +37,7 @@ function! s:set_command(key) abort
 	let s:old_opfunc = &operatorfunc
 endfunction
 
-function! PiperShowMappings()
+function! PiperShowMappings() abort
 	let l:old_more = &more
 	let &more = 1
 
@@ -52,7 +52,7 @@ function! PiperShowMappings()
 	let &more = l:old_more
 endfunction
 
-function! s:go (...)
+function! s:go (...) abort
 	if !has_key(g:piper_command_list, s:piper_command)
 		echoerr 'piper: unknown command key: ' . string(s:piper_command)
 		return
@@ -77,7 +77,7 @@ function! s:go (...)
 	endif
 endfunction
 
-function! s:set_up_mappings()
+function! s:set_up_mappings() abort
 	for l:i in keys (g:piper_command_list)
 		let l:u = toupper (l:i)
 
