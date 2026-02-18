@@ -41,7 +41,7 @@ Alternatively, you can
 
   :call PiperShowMappings()
 
-Each command has three mappings.
+Each command has four mappings.
 Each mapping begins with cp (remember this as Change using a Pipe), followed
 by a letter from the table above: |piper-commands|
 For example, the mappings for the "rev" command are:
@@ -50,6 +50,7 @@ For example, the mappings for the "rev" command are:
   cpr           Filter region defined by vim {motion} commands
   cprr          Filter the current line
   cpR           Filter the entire file (note the capital letter)
+  cpr           Filter the visual selection (in Visual mode)
 
                                                             *cpa*
 cpa{motion}     Run command "ansifilter" on the {motion}

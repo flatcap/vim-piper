@@ -34,16 +34,17 @@ Alternatively, you can
 
     :call PiperShowMappings()
 
-Each command has three mappings.
+Each command has four mappings.
 Each mapping begins with cp (remember this as Change using a Pipe),
 followed by a letter from the table above.
 For example, the mappings for the "rev" command are:
 
-| Mapping | Description                                      |
-| ------- | ------------------------------------------------ |
-| cpr     | Filter region defined by vim {motion} commands   |
-| cprr    | Filter the current line                          |
-| cpR     | Filter the entire file (note the capital letter) |
+| Mapping | Mode   | Description                                      |
+| ------- | ------ | ------------------------------------------------ |
+| cpr     | Normal | Filter region defined by vim {motion} commands   |
+| cprr    | Normal | Filter the current line                          |
+| cpR     | Normal | Filter the entire file (note the capital letter) |
+| cpr     | Visual | Filter the visual selection                      |
 
 e.g.
 
