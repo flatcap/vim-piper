@@ -29,7 +29,11 @@ let g:piper_command_list = get (g:, 'piper_command_list', {
 	\ } )
 " Unused: bghijmopqvwy
 
-let g:piper_command = ''
+let s:piper_command = ''
+
+function! s:set_command(key) abort
+	let s:piper_command = a:key
+endfunction
 
 function! PiperShowMappings()
 	let l:old_more = &more
@@ -53,17 +57,17 @@ function! s:go (...)
 		let [l:start, l:stop] = [line ('''['), line (''']')]
 	endif
 
-	execute l:start . ',' . l:stop . '!' . g:piper_command_list[g:piper_command]
+	execute l:start . ',' . l:stop . '!' . g:piper_command_list[s:piper_command]
 endfunction
 
 function! s:set_up_mappings()
 	for l:i in keys (g:piper_command_list)
 		let l:u = toupper (l:i)
 
-		execute 'nnoremap <silent> <Plug>PiperA_' . l:i . ' :let g:piper_command="'     . l:i . '"<bar>call <SID>go (1, line (''$''))<CR>'
-		execute 'nnoremap <silent> <Plug>PiperL_' . l:i . ' :let g:piper_command="'     . l:i . '"<bar>call <SID>go (line (''.''), line (''.''))<CR>'
-		execute 'nnoremap <silent> <Plug>PiperM_' . l:i . ' :<C-U>let g:piper_command="'. l:i . '"<bar>set opfunc=<SID>go<CR>g@'
-		execute 'xnoremap <silent> <Plug>PiperV_' . l:i . ' :<C-U>let g:piper_command="'. l:i . '"<bar>call <SID>go (line ("''<"), line ("''>"))<CR>'
+		execute 'nnoremap <silent> <Plug>PiperA_' . l:i . ' :call <SID>set_command("'     . l:i . '")<bar>call <SID>go (1, line (''$''))<CR>'
+		execute 'nnoremap <silent> <Plug>PiperL_' . l:i . ' :call <SID>set_command("'     . l:i . '")<bar>call <SID>go (line (''.''), line (''.''))<CR>'
+		execute 'nnoremap <silent> <Plug>PiperM_' . l:i . ' :<C-U>call <SID>set_command("'. l:i . '")<bar>set opfunc=<SID>go<CR>g@'
+		execute 'xnoremap <silent> <Plug>PiperV_' . l:i . ' :<C-U>call <SID>set_command("'. l:i . '")<bar>call <SID>go (line ("''<"), line ("''>"))<CR>'
 
 		" Four mappings for each command
 		"       PiperA all the file
