@@ -30,9 +30,11 @@ let g:piper_command_list = get (g:, 'piper_command_list', {
 " Unused: bghijmopqvwy
 
 let s:piper_command = ''
+let s:old_opfunc = ''
 
 function! s:set_command(key) abort
 	let s:piper_command = a:key
+	let s:old_opfunc = &operatorfunc
 endfunction
 
 function! PiperShowMappings()
@@ -55,6 +57,7 @@ function! s:go (...)
 		let [l:start, l:stop] = [a:1, a:2]
 	else
 		let [l:start, l:stop] = [line ('''['), line (''']')]
+		let &operatorfunc = s:old_opfunc
 	endif
 
 	execute l:start . ',' . l:stop . '!' . g:piper_command_list[s:piper_command]
