@@ -5,13 +5,13 @@
 " License:      GPLv3 <http://fsf.org/>
 " Version:      1.0
 
-if (exists ('g:loaded_piper') || &cp || (v:version < 700))
+if (exists('g:loaded_piper') || &cp || (v:version < 700))
 	finish
 endif
 let g:loaded_piper = 1
 
 " Set default value
-let g:piper_command_list = get (g:, 'piper_command_list', {
+let g:piper_command_list = get(g:, 'piper_command_list', {
 		\ 'a': 'LANG=C ansifilter',
 		\ 'c': 'LANG=C column --table --output-separator " "',
 		\ 'd': 'LANG=C uniq --repeated',
@@ -26,7 +26,7 @@ let g:piper_command_list = get (g:, 'piper_command_list', {
 		\ 'u': 'LANG=C uniq',
 		\ 'x': 'LANG=C shuf',
 		\ 'z': 'LANG=C cat --squeeze-blank',
-	\ } )
+	\ })
 " Unused: bghijmopqvwy
 
 let s:piper_command = ''
@@ -45,14 +45,14 @@ function! PiperShowMappings() abort
 	echo 'Vim Piper mappings:'
 	echohl none
 
-	for l:i in sort (keys (g:piper_command_list))
-		echom printf ("    %s : %s", l:i, g:piper_command_list[l:i])
+	for l:i in sort(keys(g:piper_command_list))
+		echom printf("    %s : %s", l:i, g:piper_command_list[l:i])
 	endfor
 
 	let &more = l:old_more
 endfunction
 
-function! s:go (...) abort
+function! s:go(...) abort
 	if !has_key(g:piper_command_list, s:piper_command)
 		echoerr 'piper: unknown command key: ' . string(s:piper_command)
 		return
@@ -73,7 +73,7 @@ function! s:go (...) abort
 	if (a:0 == 2)
 		let [l:start, l:stop] = [a:1, a:2]
 	else
-		let [l:start, l:stop] = [line ('''['), line (''']')]
+		let [l:start, l:stop] = [line("'["), line("']")]
 		let &operatorfunc = s:old_opfunc
 	endif
 
@@ -85,20 +85,20 @@ function! s:go (...) abort
 endfunction
 
 function! s:set_up_mappings() abort
-	for l:i in keys (g:piper_command_list)
-		let l:u = toupper (l:i)
+	for l:i in keys(g:piper_command_list)
+		let l:u = toupper(l:i)
 
-		execute 'nnoremap <silent> <Plug>PiperA_' . l:i . ' :call <SID>set_command("'     . l:i . '")<bar>call <SID>go (1, line (''$''))<CR>'
-		execute 'nnoremap <silent> <Plug>PiperL_' . l:i . ' :call <SID>set_command("'     . l:i . '")<bar>call <SID>go (line (''.''), line (''.''))<CR>'
+		execute 'nnoremap <silent> <Plug>PiperA_' . l:i . ' :call <SID>set_command("'     . l:i . '")<bar>call <SID>go(1, line(''$''))<CR>'
+		execute 'nnoremap <silent> <Plug>PiperL_' . l:i . ' :call <SID>set_command("'     . l:i . '")<bar>call <SID>go(line(''.''), line(''.''))<CR>'
 		execute 'nnoremap <silent> <Plug>PiperM_' . l:i . ' :<C-U>call <SID>set_command("'. l:i . '")<bar>set opfunc=<SID>go<CR>g@'
-		execute 'xnoremap <silent> <Plug>PiperV_' . l:i . ' :<C-U>call <SID>set_command("'. l:i . '")<bar>call <SID>go (line ("''<"), line ("''>"))<CR>'
+		execute 'xnoremap <silent> <Plug>PiperV_' . l:i . ' :<C-U>call <SID>set_command("'. l:i . '")<bar>call <SID>go(line("''<"), line("''>"))<CR>'
 
 		" Four mappings for each command
 		"       PiperA all the file
 		"       PiperL line (single)
 		"       PiperM motion
 		"       PiperV visual
-		if (get (g:, 'piper_create_mappings', 1))
+		if (get(g:, 'piper_create_mappings', 1))
 			execute 'nmap cp' . l:u       . ' <Plug>PiperA_' . l:i
 			execute 'nmap cp' . l:i . l:i . ' <Plug>PiperL_' . l:i
 			execute 'nmap cp' . l:i       . ' <Plug>PiperM_' . l:i
