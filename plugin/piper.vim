@@ -63,6 +63,13 @@ function! s:go (...) abort
 		return
 	endif
 
+	let l:cmd = g:piper_command_list[s:piper_command]
+	let l:exe = matchstr(l:cmd, '\%(LANG=\S\+\s\+\)\?\zs\S\+')
+	if !executable(l:exe)
+		echoerr 'piper: command not found: ' . l:exe
+		return
+	endif
+
 	if (a:0 == 2)
 		let [l:start, l:stop] = [a:1, a:2]
 	else
