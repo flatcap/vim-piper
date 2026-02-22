@@ -7,7 +7,7 @@ The magic of pipes.
 There are fourteen commands by default:
 
 | Key | Command         | Mnemonic                           |
-| --- | --------------- | ---------------------------------- |
+| :-- | :-------------- | :--------------------------------- |
 | a   | ansifilter      | (A)nsifilter                       |
 | c   | column -t       | (C)olumn                           |
 | d   | uniq -d         | show only (D)uplicate lines        |
@@ -44,7 +44,7 @@ followed by a letter from the table above.
 For example, the mappings for the "rev" command are:
 
 | Mapping | Mode   | Description                                      |
-| ------- | ------ | ------------------------------------------------ |
+| :------ | :----- | :----------------------------------------------- |
 | cpr     | Normal | Filter region defined by vim {motion} commands   |
 | cprr    | Normal | Filter the current line                          |
 | cpR     | Normal | Filter the entire file (note the capital letter) |
@@ -54,7 +54,7 @@ For example, the mappings for the "rev" command are:
 e.g.
 
 | Mapping       | Works on      | Command         | Effect                              |
-| ------------- | ------------- | --------------- | ----------------------------------- |
+| :------------ | :------------ | :-------------- | :---------------------------------- |
 | cpa\{motion\} | \{motion\}    | ansifilter      | ANSI sequences are stripped out     |
 | cpaa          | current line  | ansifilter      | ANSI sequences are stripped out     |
 | cpA           | entire file   | ansifilter      | ANSI sequences are stripped out     |
@@ -159,7 +159,7 @@ copy the script, above, into your `.vimrc`.
 ## Examples
 
 | Type This         | Result                               |
-| ----------------- | ------------------------------------ |
+| :---------------- | :----------------------------------- |
 | cpsip             | Current paragraph is sorted          |
 | cpx9j             | Ten lines are randomised             |
 | cpL               | Add lines numbers to the entire file |
@@ -168,7 +168,7 @@ copy the script, above, into your `.vimrc`.
 
 ## License
 
-Copyright &copy; Richard Russon (flatcap).
+Copyright &copy; 2014-2026 Richard Russon (flatcap).
 Distributed under the GPLv3 <http://fsf.org/>
 
 ## See also

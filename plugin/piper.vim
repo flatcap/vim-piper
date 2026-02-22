@@ -1,7 +1,7 @@
 " piper.vim - The magic of pipes
 " Author:       Rich Russon (flatcap) <rich@flatcap.org>
 " Website:      https://flatcap.org
-" Copyright:    2014-2021 Richard Russon
+" Copyright:    2014-2026 Richard Russon
 " License:      GPLv3 <http://fsf.org/>
 " Version:      1.0
 
@@ -92,13 +92,16 @@ endfunction
 function! s:motion_or_count(key) abort
 	call s:set_command(a:key)
 	if v:count > 0
-		return ":\<C-U>call " . s:sid . "go(line('.'), line('.') + " . v:count1 . " - 1)\<CR>"
+		return ":\<C-U>call " . s:go_ref . "(line('.'), line('.') + " . v:count1 . " - 1)\<CR>"
 	endif
-	let &operatorfunc = s:sid . 'go'
+	let &operatorfunc = s:go_ref
 	return 'g@'
 endfunction
 
-let s:sid = matchstr(expand('<sfile>'), '<SNR>\d\+_')
+function! s:_init_ref() abort
+	let s:go_ref = matchstr(expand('<sfile>'), '.*\zs<SNR>\d\+_') . 'go'
+endfunction
+call s:_init_ref()
 
 function! s:set_up_mappings() abort
 	for l:i in keys(g:piper_command_list)
