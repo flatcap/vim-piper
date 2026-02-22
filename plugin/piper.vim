@@ -89,14 +89,13 @@ function! s:go(...) abort
 	call winrestview(l:view)
 endfunction
 
-function! s:counted_go(key, count) abort
+function! s:motion_or_count(key) abort
 	call s:set_command(a:key)
-	if a:count > 0
-		call s:go(line('.'), line('.') + a:count - 1)
-	else
-		let &operatorfunc = s:sid . 'go'
-		call feedkeys('g@', 'n')
+	if v:count > 0
+		return ":\<C-U>call " . s:sid . "go(line('.'), line('.') + " . v:count1 . " - 1)\<CR>"
 	endif
+	let &operatorfunc = s:sid . 'go'
+	return 'g@'
 endfunction
 
 let s:sid = matchstr(expand('<sfile>'), '<SNR>\d\+_')
@@ -107,7 +106,7 @@ function! s:set_up_mappings() abort
 
 		execute 'nnoremap <silent> <Plug>PiperA_' . l:i . ' :call <SID>set_command("'     . l:i . '")<bar>call <SID>go(1, line(''$''))<CR>'
 		execute 'nnoremap <silent> <Plug>PiperL_' . l:i . ' :call <SID>set_command("'     . l:i . '")<bar>call <SID>go(line(''.''), line(''.''))<CR>'
-		execute 'nnoremap <silent> <Plug>PiperM_' . l:i . ' :<C-U>call <SID>counted_go("'. l:i . '", v:count)<CR>'
+		execute 'nnoremap <silent> <expr> <Plug>PiperM_' . l:i . ' <SID>motion_or_count("'. l:i . '")'
 		execute 'xnoremap <silent> <Plug>PiperV_' . l:i . ' :<C-U>call <SID>set_command("'. l:i . '")<bar>call <SID>go(line("''<"), line("''>"))<CR>'
 
 		" Four mappings for each command
