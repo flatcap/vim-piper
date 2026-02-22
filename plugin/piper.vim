@@ -77,12 +77,16 @@ function! s:go(...) abort
 		let &operatorfunc = s:old_opfunc
 	endif
 
+	let l:view = winsaveview()
+
 	silent! undojoin
 	execute l:start . ',' . l:stop . '!' . g:piper_command_list[s:piper_command]
 
 	if v:shell_error
 		echoerr 'piper: command failed (exit ' . v:shell_error . '): ' . g:piper_command_list[s:piper_command]
 	endif
+
+	call winrestview(l:view)
 endfunction
 
 function! s:set_up_mappings() abort
