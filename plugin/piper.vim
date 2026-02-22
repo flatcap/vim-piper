@@ -110,6 +110,7 @@ function! s:set_up_mappings() abort
 
 	command! -nargs=1 -range=% -complete=customlist,s:complete_keys Piper
 		\ call s:set_command(<q-args>) | call s:go(<line1>, <line2>)
+	command! -nargs=0 PiperShowMappings call PiperShowMappings()
 endfunction
 
 function! s:complete_keys(ArgLead, CmdLine, CursorPos) abort
