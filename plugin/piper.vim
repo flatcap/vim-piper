@@ -77,6 +77,7 @@ function! s:go(...) abort
 		let &operatorfunc = s:old_opfunc
 	endif
 
+	silent! undojoin
 	execute l:start . ',' . l:stop . '!' . g:piper_command_list[s:piper_command]
 
 	if v:shell_error
