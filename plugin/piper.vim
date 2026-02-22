@@ -95,7 +95,7 @@ function! s:counted_go(key, count) abort
 		call s:go(line('.'), line('.') + a:count - 1)
 	else
 		let &operatorfunc = s:sid . 'go'
-		normal! g@
+		call feedkeys('g@', 'n')
 	endif
 endfunction
 
