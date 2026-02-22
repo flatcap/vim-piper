@@ -37,7 +37,11 @@ This will list all the shortcuts and the commands they call:
 
   nmap <silent> <F6> <Plug>PiperShowMappings
 
-Alternatively, you can
+Alternatively, you can use the command:
+
+  :PiperShowMappings
+
+or call the function directly:
 
   :call PiperShowMappings()
 
@@ -51,6 +55,7 @@ For example, the mappings for the "rev" command are:
   cprr          Filter the current line
   cpR           Filter the entire file (note the capital letter)
   cpr           Filter the visual selection (in Visual mode)
+  3cpr          Filter the next 3 lines (count support)
 
                                                             *cpa*
 cpa{motion}     Run command "ansifilter" on the {motion}
@@ -221,6 +226,37 @@ cpzz            Run command "cat -s" on the current line
 cpZ             Run command "cat -s" on the entire file
                 Effect: Duplicate blank lines are removed
 
+USER COMMANDS                                   *piper-user-commands*
+
+                                                *:Piper*
+:Piper {key}    Run a piper command on the entire file.  Accepts a range:
+                  :Piper s              Sort the entire file
+                  :10,20Piper n         Numerically sort lines 10-20
+                  :'<,'>Piper r         Reverse the visual selection
+                Tab-completion is available for the command key.
+
+                                                *:PiperShowMappings*
+:PiperShowMappings
+                List all the command keys and the commands they call.
+
+COUNT SUPPORT                                   *piper-count*
+
+The motion mappings accept a count.  If a count is given, the command is
+applied to that many lines starting from the cursor position.  Without a
+count, operator-pending mode is entered and a {motion} is expected.
+
+  3cps          Sort the next 3 lines
+  5cpr          Reverse the next 5 lines
+
+BEHAVIOUR                                       *piper-behaviour*
+
+All filtering is line-range based, even with characterwise motions or
+visual selections.
+
+After filtering, the cursor position and scroll state are preserved.
+The filter operation is grouped into a single undo step, so a single |u|
+will undo the entire operation.
+
 CONFIGURATION                                   *piper-configuration*
 
 The pipes are initialised from a vim dictionary.  Here's the default:
@@ -247,10 +283,12 @@ copy the script, above, into your .vimrc
 
 EXAMPLES                                                *piper-examples*
 
-  Type This     Result ~
-  cpsip         Current paragraph is sorted
-  cpx9j         Ten lines are randomised
-  cpL           Add lines numbers to the entire file
+  Type This             Result ~
+  cpsip                 Current paragraph is sorted
+  cpx9j                 Ten lines are randomised
+  cpL                   Add lines numbers to the entire file
+  3cps                  Sort the next 3 lines
+  :10,20Piper r         Reverse lines 10-20
 
 ABOUT                                                   *piper-about*
 

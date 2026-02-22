@@ -30,7 +30,11 @@ This will list all the shortcuts and the commands they call:
 
     nmap <silent> <F6> <Plug>PiperShowMappings
 
-Alternatively, you can
+Alternatively, you can use the command:
+
+    :PiperShowMappings
+
+or call the function directly:
 
     :call PiperShowMappings()
 
@@ -45,6 +49,7 @@ For example, the mappings for the "rev" command are:
 | cprr    | Normal | Filter the current line                          |
 | cpR     | Normal | Filter the entire file (note the capital letter) |
 | cpr     | Visual | Filter the visual selection                      |
+| 3cpr    | Normal | Filter the next 3 lines (count support)          |
 
 e.g.
 
@@ -93,6 +98,40 @@ e.g.
 | cpzz          | current line  | cat -s          | Duplicate blank lines are removed   |
 | cpZ           | entire file   | cat -s          | Duplicate blank lines are removed   |
 
+# User Commands
+
+## `:Piper {key}`
+
+Run a piper command on a range of lines.  Defaults to the entire file.
+
+    :Piper s              Sort the entire file
+    :10,20Piper n         Numerically sort lines 10-20
+    :'<,'>Piper r         Reverse the visual selection
+
+Tab-completion is available for the command key.
+
+## `:PiperShowMappings`
+
+List all the command keys and the commands they call.
+
+# Count Support
+
+The motion mappings accept a count.  If a count is given, the command is
+applied to that many lines starting from the cursor position.  Without a
+count, operator-pending mode is entered and a `{motion}` is expected.
+
+    3cps                  Sort the next 3 lines
+    5cpr                  Reverse the next 5 lines
+
+# Behaviour
+
+All filtering is line-range based, even with characterwise motions or
+visual selections.
+
+After filtering, the cursor position and scroll state are preserved.
+The filter operation is grouped into a single undo step, so a single `u`
+will undo the entire operation.
+
 # Configuration
 
 The pipes are initialised from a vim dictionary.  Here's the default:
@@ -119,11 +158,13 @@ copy the script, above, into your `.vimrc`.
 
 ## Examples
 
-| Type This | Result                               |
-| --------- | ------------------------------------ |
-| cpsip     | Current paragraph is sorted          |
-| cpx9j     | Ten lines are randomised             |
-| cpL       | Add lines numbers to the entire file |
+| Type This         | Result                               |
+| ----------------- | ------------------------------------ |
+| cpsip             | Current paragraph is sorted          |
+| cpx9j             | Ten lines are randomised             |
+| cpL               | Add lines numbers to the entire file |
+| 3cps              | Sort the next 3 lines                |
+| :10,20Piper r     | Reverse lines 10-20                  |
 
 ## License
 
