@@ -89,13 +89,25 @@ function! s:go(...) abort
 	call winrestview(l:view)
 endfunction
 
+function! s:counted_go(key, count) abort
+	call s:set_command(a:key)
+	if a:count > 0
+		call s:go(line('.'), line('.') + a:count - 1)
+	else
+		let &operatorfunc = s:sid . 'go'
+		normal! g@
+	endif
+endfunction
+
+let s:sid = matchstr(expand('<sfile>'), '<SNR>\d\+_')
+
 function! s:set_up_mappings() abort
 	for l:i in keys(g:piper_command_list)
 		let l:u = toupper(l:i)
 
 		execute 'nnoremap <silent> <Plug>PiperA_' . l:i . ' :call <SID>set_command("'     . l:i . '")<bar>call <SID>go(1, line(''$''))<CR>'
 		execute 'nnoremap <silent> <Plug>PiperL_' . l:i . ' :call <SID>set_command("'     . l:i . '")<bar>call <SID>go(line(''.''), line(''.''))<CR>'
-		execute 'nnoremap <silent> <Plug>PiperM_' . l:i . ' :<C-U>call <SID>set_command("'. l:i . '")<bar>set opfunc=<SID>go<CR>g@'
+		execute 'nnoremap <silent> <Plug>PiperM_' . l:i . ' :<C-U>call <SID>counted_go("'. l:i . '", v:count)<CR>'
 		execute 'xnoremap <silent> <Plug>PiperV_' . l:i . ' :<C-U>call <SID>set_command("'. l:i . '")<bar>call <SID>go(line("''<"), line("''>"))<CR>'
 
 		" Four mappings for each command
